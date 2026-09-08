@@ -210,6 +210,18 @@
     catch(e){ console.error('[Nabha Dashboard] load/render failed:', e); showError(e); }
   }
 
+  async function refreshLiveData(){
+    if(state.loading || document.visibilityState !== 'visible')return;
+    try {
+      state.data=await api.getDashboard();
+      if(ROLE==='PATIENT'){
+        try{state.patientRequests=await api.getMyConsultationRequests();}catch(e){}
+      }
+      if(ROLE==='ADMIN')await Promise.all([loadAdminVerification(),loadAdminConsultationRequests()]);
+      render();
+    } catch(e) {}
+  }
+
   async function loadAdminVerification(){ if(ROLE!=='ADMIN')return; try{const result=await api.adminVerification({page:state.admin.page,limit:8,search:state.admin.search,status:state.admin.status==='ALL'?'':state.admin.status,role:state.admin.role==='ALL'?'':state.admin.role,sort:state.admin.sort,order:state.admin.order});state.admin.pagination=result.pagination;state.admin.items=result.data||[];}catch(e){state.admin.items=[];state.admin.pagination=null;ui.showToast(e.message||'Unable to load verification queue','danger');} }
 
 
@@ -259,7 +271,7 @@
     await i18n.init();
     ui.renderAppShell('dashboard');
     if (ROLE === 'DOCTOR') { try { await api.setDoctorPresence('ONLINE'); setInterval(() => api.setDoctorPresence(document.visibilityState === 'visible' ? 'ONLINE' : 'AWAY').catch(() => {}), 30000); } catch (e) {} }
-    await Promise.all([loadNotifications(),load()]); setInterval(async()=>{await loadNotifications();},60000); if(ROLE==='PATIENT')setInterval(async()=>{try{state.patientRequests=await api.getMyConsultationRequests();render();}catch(e){}},8000);
+    await Promise.all([loadNotifications(),load()]); setInterval(async()=>{await loadNotifications();},60000); setInterval(refreshLiveData,8000);
   });
 
   document.addEventListener('click', async (event) => {
