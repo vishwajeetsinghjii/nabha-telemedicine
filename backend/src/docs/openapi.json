@@ -1,0 +1,32 @@
+{
+  "openapi": "3.0.0",
+  "info": {
+    "title": "SIH25018 Nabha Rural Telemedicine Platform API",
+    "version": "1.0.0",
+    "description": "Production REST API for Nabha Rural Telemedicine Platform supporting offline synchronization, AI preliminary triage, video consultation orchestration, and digital prescriptions."
+  },
+  "servers": [
+    {
+      "url": "http://localhost:5000/api/v1",
+      "description": "Local Development Server"
+    }
+  ],
+  "paths": {
+    "/auth/login": {
+      "post": {
+        "summary": "Login with registered mobile number or email and password",
+        "responses": { "200": { "description": "JWT access and refresh tokens issued" } }
+      }
+    },
+    "/patients": {
+      "get": { "summary": "Get paginated list of patients" },
+      "post": { "summary": "Register a new rural patient" }
+    },
+    "/sync/push": {
+      "post": { "summary": "Push offline IndexedDB operations with operationId idempotency" }
+    },
+    "/ai/triage": {
+      "post": { "summary": "Request AI-assisted preliminary triage assessment" }
+    }
+  }
+}

@@ -1,0 +1,1 @@
+const express=require('express');const router=express.Router();const c=require('../controllers/notification.controller');const auth=require('../middleware/auth.middleware');router.use(auth);router.get('/',c.list);router.patch('/:id/read',c.markRead);module.exports=router;

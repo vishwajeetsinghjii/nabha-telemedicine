@@ -1,0 +1,530 @@
+<!DOCTYPE html>
+
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+
+<meta name="description"
+      content="Doctor registration for Nabha Telemedicine">
+
+<meta name="theme-color" content="#0f766e">
+
+<title>Doctor Registration | Nabha Telemedicine</title>
+
+<link rel="stylesheet" href="css/global.css">
+<link rel="stylesheet" href="css/doctor-register.css">
+
+
+</head>
+
+<body>
+
+<header class="register-header">
+
+
+<a href="index.html" class="brand">
+    <span class="brand-mark">N</span>
+
+    <span>
+        <strong>Nabha Telemedicine</strong>
+        <small>Digital Healthcare Platform</small>
+    </span>
+</a>
+
+<a href="login.html" class="login-link">
+    Already registered? <strong>Login</strong>
+</a>
+
+
+</header>
+
+<main class="registration-page">
+
+<section class="registration-container">
+
+
+<div class="registration-intro">
+
+    <span class="role-badge">DOCTOR REGISTRATION</span>
+
+    <h1>Join the healthcare provider network</h1>
+
+    <p>
+        Create your professional account to provide verified
+        telemedicine services through Nabha Telemedicine.
+    </p>
+
+    <div class="approval-note">
+        <strong>Professional verification required</strong>
+
+        <p>
+            Doctor registrations are reviewed by an authorized
+            administrator before the account can provide consultations.
+        </p>
+    </div>
+
+</div>
+
+
+<form id="doctorRegistrationForm"
+      class="registration-form"
+      enctype="multipart/form-data"
+      novalidate>
+
+    <div id="formMessage"
+         class="form-message"
+         role="alert"
+         hidden>
+    </div>
+
+
+    <!-- PERSONAL -->
+
+    <section class="form-section">
+
+        <div class="section-heading">
+            <span class="section-number">01</span>
+
+            <div>
+                <h2>Personal information</h2>
+                <p>Provide your legal identity details.</p>
+            </div>
+        </div>
+
+
+        <div class="form-grid">
+
+            <div class="form-group">
+                <label for="firstName">
+                    First name <span>*</span>
+                </label>
+
+                <input
+                    id="firstName"
+                    name="firstName"
+                    autocomplete="given-name"
+                    maxlength="80"
+                    required>
+
+                <small id="firstNameError"
+                       class="field-error"></small>
+            </div>
+
+
+            <div class="form-group">
+                <label for="lastName">
+                    Last name <span>*</span>
+                </label>
+
+                <input
+                    id="lastName"
+                    name="lastName"
+                    autocomplete="family-name"
+                    maxlength="80"
+                    required>
+
+                <small id="lastNameError"
+                       class="field-error"></small>
+            </div>
+
+
+            <div class="form-group">
+                <label for="dateOfBirth">
+                    Date of birth <span>*</span>
+                </label>
+
+                <input
+                    type="date"
+                    id="dateOfBirth"
+                    name="dateOfBirth"
+                    required>
+
+                <small id="dateOfBirthError"
+                       class="field-error"></small>
+            </div>
+
+
+            <div class="form-group">
+                <label for="gender">
+                    Gender <span>*</span>
+                </label>
+
+                <select id="gender"
+                        name="gender"
+                        required>
+
+                    <option value="">Select gender</option>
+                    <option value="Male">Male</option>
+                    <option value="Female">Female</option>
+                    <option value="Other">Other</option>
+
+                </select>
+
+                <small id="genderError"
+                       class="field-error"></small>
+            </div>
+
+        </div>
+
+    </section>
+
+
+    <!-- CONTACT -->
+
+    <section class="form-section">
+
+        <div class="section-heading">
+            <span class="section-number">02</span>
+
+            <div>
+                <h2>Contact information</h2>
+                <p>Used for account verification and communication.</p>
+            </div>
+        </div>
+
+
+        <div class="form-grid">
+
+            <div class="form-group">
+
+                <label for="mobile">
+                    Mobile number <span>*</span>
+                </label>
+
+                <div class="phone-input">
+                    <span>+91</span>
+
+                    <input
+                        type="tel"
+                        id="mobile"
+                        name="mobile"
+                        inputmode="numeric"
+                        maxlength="10"
+                        autocomplete="tel"
+                        required>
+                </div>
+
+                <small id="mobileError"
+                       class="field-error"></small>
+
+            </div>
+
+
+            <div class="form-group">
+
+                <label for="email">
+                    Professional email <span>*</span>
+                </label>
+
+                <input
+                    type="email"
+                    id="email"
+                    name="email"
+                    autocomplete="email"
+                    maxlength="150"
+                    required>
+
+                <small id="emailError"
+                       class="field-error"></small>
+
+            </div>
+
+        </div>
+
+    </section>
+
+
+    <!-- PROFESSIONAL -->
+
+    <section class="form-section">
+
+        <div class="section-heading">
+            <span class="section-number">03</span>
+
+            <div>
+                <h2>Professional information</h2>
+                <p>Provide your medical registration details.</p>
+            </div>
+        </div>
+
+
+        <div class="form-grid">
+
+            <div class="form-group">
+                <label for="medicalRegistrationNumber">
+                    Medical registration number <span>*</span>
+                </label>
+
+                <input
+                    id="medicalRegistrationNumber"
+                    name="medicalRegistrationNumber"
+                    maxlength="100"
+                    required>
+
+                <small id="medicalRegistrationNumberError"
+                       class="field-error"></small>
+            </div>
+
+
+            <div class="form-group">
+                <label for="medicalCouncil">
+                    Medical council <span>*</span>
+                </label>
+
+                <input
+                    id="medicalCouncil"
+                    name="medicalCouncil"
+                    maxlength="150"
+                    placeholder="e.g. State Medical Council"
+                    required>
+
+                <small id="medicalCouncilError"
+                       class="field-error"></small>
+            </div>
+
+
+            <div class="form-group">
+                <label for="qualification">
+                    Highest qualification <span>*</span>
+                </label>
+
+                <input
+                    id="qualification"
+                    name="qualification"
+                    maxlength="150"
+                    placeholder="e.g. MBBS, MD"
+                    required>
+
+                <small id="qualificationError"
+                       class="field-error"></small>
+            </div>
+
+
+            <div class="form-group">
+                <label for="specialization">
+                    Specialization <span>*</span>
+                </label>
+
+                <input
+                    id="specialization"
+                    name="specialization"
+                    maxlength="150"
+                    placeholder="e.g. General Medicine"
+                    required>
+
+                <small id="specializationError"
+                       class="field-error"></small>
+            </div>
+
+
+            <div class="form-group">
+                <label for="experience">
+                    Years of experience <span>*</span>
+                </label>
+
+                <input
+                    type="number"
+                    id="experience"
+                    name="experience"
+                    min="0"
+                    max="60"
+                    required>
+
+                <small id="experienceError"
+                       class="field-error"></small>
+            </div>
+
+        </div>
+
+    </section>
+
+
+    <!-- DOCUMENTS -->
+
+    <section class="form-section">
+
+        <div class="section-heading">
+            <span class="section-number">04</span>
+
+            <div>
+                <h2>Verification documents</h2>
+                <p>Documents will be securely reviewed by an administrator.</p>
+            </div>
+        </div>
+
+
+        <div class="document-grid">
+
+            <label class="upload-box">
+
+                <strong>Medical registration proof *</strong>
+
+                <span>
+                    Upload your registration certificate.
+                </span>
+
+                <input
+                    type="file"
+                    id="registrationDocument"
+                    name="registrationDocument"
+                    accept=".pdf,.jpg,.jpeg,.png"
+                    required>
+
+                <small id="registrationDocumentError"
+                       class="field-error"></small>
+
+            </label>
+
+
+            <label class="upload-box">
+
+                <strong>Qualification certificate *</strong>
+
+                <span>
+                    Upload your highest qualification certificate.
+                </span>
+
+                <input
+                    type="file"
+                    id="qualificationDocument"
+                    name="qualificationDocument"
+                    accept=".pdf,.jpg,.jpeg,.png"
+                    required>
+
+                <small id="qualificationDocumentError"
+                       class="field-error"></small>
+
+            </label>
+
+        </div>
+
+    </section>
+
+
+    <!-- PASSWORD -->
+
+    <section class="form-section">
+
+        <div class="section-heading">
+            <span class="section-number">05</span>
+
+            <div>
+                <h2>Account security</h2>
+                <p>Create a secure password.</p>
+            </div>
+        </div>
+
+
+        <div class="form-grid">
+
+            <div class="form-group">
+
+                <label for="password">
+                    Password <span>*</span>
+                </label>
+
+                <input
+                    type="password"
+                    id="password"
+                    name="password"
+                    autocomplete="new-password"
+                    minlength="8"
+                    maxlength="128"
+                    required>
+
+                <small class="password-hint">
+                    Minimum 8 characters with uppercase,
+                    lowercase, number and special character.
+                </small>
+
+                <small id="passwordError"
+                       class="field-error"></small>
+
+            </div>
+
+
+            <div class="form-group">
+
+                <label for="confirmPassword">
+                    Confirm password <span>*</span>
+                </label>
+
+                <input
+                    type="password"
+                    id="confirmPassword"
+                    name="confirmPassword"
+                    autocomplete="new-password"
+                    required>
+
+                <small id="confirmPasswordError"
+                       class="field-error"></small>
+
+            </div>
+
+        </div>
+
+    </section>
+
+
+    <section class="consent-section">
+
+        <label class="checkbox-row">
+
+            <input
+                type="checkbox"
+                id="terms"
+                required>
+
+            <span>
+                I confirm that the information provided is accurate
+                and agree to the platform's terms and privacy policy.
+                <span>*</span>
+            </span>
+
+        </label>
+
+    </section>
+
+
+    <button
+        type="submit"
+        id="submitButton"
+        class="primary-button">
+
+        <span class="button-text">
+            Submit Doctor Application
+        </span>
+
+        <span class="button-loader" hidden>
+            Submitting application...
+        </span>
+
+    </button>
+
+
+    <p class="login-footer">
+        Already registered?
+        <a href="login.html">Sign in</a>
+    </p>
+
+</form>
+
+
+</section>
+
+</main>
+
+<script src="js/config.js"></script>
+
+<script src="js/api.js"></script>
+
+<script src="js/storage.js"></script>
+
+<script src="js/ui.js"></script>
+
+<script src="js/doctor-register.js"></script>
+
+</body>
+</html>

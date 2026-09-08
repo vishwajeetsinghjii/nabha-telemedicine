@@ -1,0 +1,478 @@
+<!DOCTYPE html>
+
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+  <title>Create an Account — Nabha Telemedicine</title>
+
+<meta
+name="description"
+content="Create your Nabha Telemedicine account as a patient, ASHA worker, or doctor."
+
+>
+
+  <meta name="theme-color" content="#006666">
+  <meta name="color-scheme" content="light">
+
+  <link rel="manifest" href="manifest.json">
+
+  <!-- Global design system -->
+
+  <link rel="stylesheet" href="css/reset.css">
+  <link rel="stylesheet" href="css/variables.css">
+  <link rel="stylesheet" href="css/main.css">
+  <link rel="stylesheet" href="css/components.css">
+  <link rel="stylesheet" href="css/forms.css">
+  <link rel="stylesheet" href="css/responsive.css">
+  <link rel="stylesheet" href="css/accessibility.css">
+
+  <!-- Registration-specific styles -->
+
+  <link rel="stylesheet" href="css/register.css">
+</head>
+
+<body class="registration-page">
+
+  <!-- =========================================================
+       HEADER
+       ========================================================= -->
+
+  <header class="registration-header">
+
+
+<div class="registration-container registration-nav">
+
+  <a
+    href="index.html"
+    class="registration-brand"
+    aria-label="Nabha Telemedicine home"
+  >
+
+    <span
+      class="registration-brand-mark"
+      aria-hidden="true"
+    >
+      <svg
+        viewBox="0 0 24 24"
+        fill="none"
+        stroke="currentColor"
+        stroke-width="2"
+        stroke-linecap="round"
+        stroke-linejoin="round"
+      >
+        <path d="M22 12h-4l-3 9L9 3l-3 9H2"></path>
+      </svg>
+    </span>
+
+    <span>Nabha Telemedicine</span>
+
+  </a>
+
+  <div class="registration-nav-right">
+
+    <span class="registration-nav-text">
+      Already have an account?
+    </span>
+
+    <a
+      href="login.html"
+      class="btn btn-outline btn-sm"
+    >
+      Login
+    </a>
+
+  </div>
+
+</div>
+
+
+  </header>
+
+  <!-- =========================================================
+       MAIN
+       ========================================================= -->
+
+  <main class="registration-main">
+
+
+<div class="registration-container">
+
+  <!-- Progress -->
+
+  <div class="registration-progress">
+
+    <div class="progress-step active">
+
+      <span class="progress-number">
+        1
+      </span>
+
+      <span class="progress-label">
+        Account type
+      </span>
+
+    </div>
+
+    <div class="progress-line"></div>
+
+    <div class="progress-step">
+
+      <span class="progress-number">
+        2
+      </span>
+
+      <span class="progress-label">
+        Registration
+      </span>
+
+    </div>
+
+    <div class="progress-line"></div>
+
+    <div class="progress-step">
+
+      <span class="progress-number">
+        3
+      </span>
+
+      <span class="progress-label">
+        Verification
+      </span>
+
+    </div>
+
+  </div>
+
+
+  <!-- Page heading -->
+
+  <section class="registration-heading">
+
+    <div class="registration-eyebrow">
+      Create your account
+    </div>
+
+    <h1>
+      How will you use
+      <span>Nabha Telemedicine?</span>
+    </h1>
+
+    <p>
+      Select the option that best describes you.
+      Your account type determines which healthcare services
+      and features you can access.
+    </p>
+
+  </section>
+
+
+  <!-- =====================================================
+       ROLE SELECTION
+       ===================================================== -->
+
+  <section
+    class="role-selection"
+    aria-labelledby="role-selection-title"
+  >
+
+    <h2
+      id="role-selection-title"
+      class="sr-only"
+    >
+      Select account type
+    </h2>
+
+
+    <!-- PATIENT -->
+
+    <button
+      type="button"
+      class="registration-role-card"
+      data-role="PATIENT"
+      aria-describedby="patient-description">
+      <div class="role-card-icon patient-icon">
+        <svg
+          viewBox="0 0 24 24"
+          fill="none"
+          stroke="currentColor"
+          stroke-width="1.8"
+          stroke-linecap="round"
+          stroke-linejoin="round"
+          aria-hidden="true">
+          <circle cx="12" cy="8" r="4"></circle>
+          <path d="M4 21c0-4.2 3.6-7 8-7s8 2.8 8 7"></path>
+        </svg>
+      </div>
+      <div class="role-card-content">
+        <div class="role-card-heading">
+          <h3>
+            Patient
+          </h3>
+          <span class="role-arrow" aria-hidden="true">
+            →
+          </span>
+        </div>
+        <p id="patient-description">
+          Access healthcare services, manage appointments,
+          connect with doctors and keep track of your care.
+        </p>
+        <ul>
+          <li>
+            Book appointments
+          </li>
+          <li>
+            Attend teleconsultations
+          </li>
+          <li>
+            View prescriptions and medical history
+          </li>
+        </ul>
+      </div>
+    </button>
+
+
+    <!-- ASHA -->
+
+    <button
+      type="button"
+      class="registration-role-card"
+      data-role="ASHA"
+      aria-describedby="asha-description"
+    >
+
+      <div class="role-card-icon asha-icon">
+
+        <svg
+          viewBox="0 0 24 24"
+          fill="none"
+          stroke="currentColor"
+          stroke-width="1.8"
+          stroke-linecap="round"
+          stroke-linejoin="round"
+          aria-hidden="true"
+        >
+          <path d="M12 3v18"></path>
+          <path d="M3 12h18"></path>
+          <path d="M5 7h14"></path>
+          <path d="M5 17h14"></path>
+        </svg>
+
+      </div>
+
+
+      <div class="role-card-content">
+
+        <div class="role-card-heading">
+
+          <h3>
+            ASHA Worker
+          </h3>
+
+          <span class="role-arrow" aria-hidden="true">
+            →
+          </span>
+
+        </div>
+
+        <p id="asha-description">
+          Support patients in your assigned community and
+          coordinate healthcare with doctors and health centers.
+        </p>
+
+        <ul>
+
+          <li>
+            Register and assist patients
+          </li>
+
+          <li>
+            Record supported health information
+          </li>
+
+          <li>
+            Coordinate consultations and follow-ups
+          </li>
+
+        </ul>
+
+      </div>
+
+    </button>
+
+
+    <!-- DOCTOR -->
+
+    <button
+      type="button"
+      class="registration-role-card"
+      data-role="DOCTOR"
+      aria-describedby="doctor-description"
+    >
+
+      <div class="role-card-icon doctor-icon">
+
+        <svg
+          viewBox="0 0 24 24"
+          fill="none"
+          stroke="currentColor"
+          stroke-width="1.8"
+          stroke-linecap="round"
+          stroke-linejoin="round"
+          aria-hidden="true"
+        >
+          <path d="M19 8h-1V5a6 6 0 0 0-12 0v3H5a2 2 0 0 0-2 2v9a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2v-9a2 2 0 0 0-2-2Z"></path>
+          <path d="M12 12v4"></path>
+          <path d="M10 14h4"></path>
+        </svg>
+
+      </div>
+
+
+      <div class="role-card-content">
+
+        <div class="role-card-heading">
+
+          <h3>
+            Doctor
+          </h3>
+
+          <span class="role-arrow" aria-hidden="true">
+            →
+          </span>
+
+        </div>
+
+        <p id="doctor-description">
+          Provide remote consultations and manage healthcare
+          for patients assigned to your authorized practice.
+        </p>
+
+        <ul>
+
+          <li>
+            Conduct teleconsultations
+          </li>
+
+          <li>
+            Review patient information
+          </li>
+
+          <li>
+            Create prescriptions and follow-ups
+          </li>
+
+        </ul>
+
+      </div>
+
+    </button>
+
+  </section>
+
+
+  <!-- =====================================================
+       VERIFICATION NOTICE
+       ===================================================== -->
+
+  <section class="verification-notice">
+
+    <div
+      class="verification-icon"
+      aria-hidden="true"
+    >
+      <svg
+        viewBox="0 0 24 24"
+        fill="none"
+        stroke="currentColor"
+        stroke-width="2"
+        stroke-linecap="round"
+        stroke-linejoin="round"
+      >
+        <path d="M12 3l8 4v5c0 4.8-3.4 8.2-8 9-4.6-.8-8-4.2-8-9V7l8-4Z"></path>
+        <path d="M9 12l2 2 4-4"></path>
+      </svg>
+    </div>
+
+    <div>
+
+      <h2>
+        Your information is role-specific
+      </h2>
+
+      <p>
+        Patients can create an account directly. ASHA workers
+        and doctors may need additional verification before
+        their professional account is activated.
+      </p>
+
+    </div>
+
+  </section>
+
+
+  <!-- =====================================================
+       ADMIN NOTICE
+       ===================================================== -->
+
+  <section class="admin-notice">
+
+    <strong>
+      Are you an administrator?
+    </strong>
+
+    <span>
+      Administrator accounts are created through a secure
+      administrative process and are not available for public registration.
+    </span>
+
+  </section>
+
+
+  <!-- Back -->
+
+  <div class="registration-back">
+
+    <a href="index.html">
+      ← Back to home
+    </a>
+
+  </div>
+
+</div>
+
+
+  </main>
+
+  <!-- =========================================================
+       FOOTER
+       ========================================================= -->
+
+  <footer class="registration-footer">
+
+
+<div class="registration-container footer-content">
+  <span>
+    © 2026 Nabha Telemedicine
+  </span>
+  <span>
+    Accessible digital healthcare platform
+  </span>
+</div>
+
+  </footer>
+
+  <!-- =========================================================
+       JAVASCRIPT
+       ========================================================= -->
+
+  <script src="js/config.js"></script>
+  <script src="js/storage.js"></script>
+  <script src="js/i18n.js"></script>
+  <script src="js/api.js"></script>
+  <script src="js/ui.js"></script>
+  <script src="js/register.js"></script>
+  <script src="js/app.js"></script>
+</body>
+</html>

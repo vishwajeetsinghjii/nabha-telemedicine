@@ -1,0 +1,6 @@
+const jwt=require('jsonwebtoken'); const env=require('../config/env'); const {AuthenticationError}=require('./errors');
+function generateAccessToken(user){return jwt.sign({sub:user.id,role:user.role,mobile:user.mobile||null,organizationId:user.organizationId||null,healthCenterId:user.healthCenterId||null,tokenType:'access'},env.JWT_SECRET,{expiresIn:env.JWT_EXPIRES_IN,issuer:env.JWT_ISSUER,audience:env.JWT_AUDIENCE});}
+function generateRefreshToken(user){return jwt.sign({sub:user.id,tokenType:'refresh'},env.JWT_REFRESH_SECRET,{expiresIn:env.REFRESH_TOKEN_EXPIRES_IN,issuer:env.JWT_ISSUER,audience:env.JWT_AUDIENCE});}
+function verifyRefreshToken(token){try{const p=jwt.verify(token,env.JWT_REFRESH_SECRET,{issuer:env.JWT_ISSUER,audience:env.JWT_AUDIENCE});if(p.tokenType!=='refresh')throw new Error('Invalid token type');return p}catch(e){throw new AuthenticationError('Invalid or expired refresh token')}}
+function verifyAccessToken(token){try{const p=jwt.verify(token,env.JWT_SECRET,{issuer:env.JWT_ISSUER,audience:env.JWT_AUDIENCE});if(p.tokenType!=='access')throw new Error('Invalid token type');return p}catch(e){throw new AuthenticationError('Invalid or expired access token')}}
+module.exports={generateAccessToken,generateRefreshToken,verifyAccessToken,verifyRefreshToken};

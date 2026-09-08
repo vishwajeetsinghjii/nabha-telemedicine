@@ -1,0 +1,227 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Patient Medical Chart — Nabha Telemedicine</title>
+  <link rel="manifest" href="manifest.json">
+  <meta name="theme-color" content="#006666">
+  
+  <!-- CSS Stylesheets -->
+  <link rel="stylesheet" href="css/reset.css">
+  <link rel="stylesheet" href="css/variables.css">
+  <link rel="stylesheet" href="css/main.css">
+  <link rel="stylesheet" href="css/components.css">
+  <link rel="stylesheet" href="css/forms.css">
+  <link rel="stylesheet" href="css/dashboard.css">
+  <link rel="stylesheet" href="css/responsive.css">
+  <link rel="stylesheet" href="css/accessibility.css">
+</head>
+<body>
+
+  <!-- Application Shell Container -->
+  <div class="app-container">
+    <div id="app-shell"></div>
+
+    <!-- Main Content Area -->
+    <main id="main-content" class="main-content-wrapper">
+      <div class="main-content">
+        
+        <!-- Header Banner -->
+        <div class="welcome-banner" style="background: linear-gradient(135deg, #0284c7 0%, #0369a1 100%);">
+          <div>
+            <h1 class="welcome-title" id="pt-profile-name">Loading patient…</h1>
+            <p class="welcome-subtitle">Loading patient information…</p>
+          </div>
+          <div class="flex items-center gap-2">
+            <span class="status-pill status-online" id="pt-sync-status-pill">
+              <span class="status-dot"></span>
+              <span id="pt-sync-status-text">SYNCED</span>
+            </span>
+          </div>
+        </div>
+
+        <!-- Navigation Tabs -->
+        <div class="flex gap-2" style="border-bottom: 2px solid var(--border-light); margin-bottom: var(--spacing-6); overflow-x: auto;">
+          <button type="button" class="btn btn-outline active" id="tab-btn-info" onclick="switchTab('info')">Patient Information</button>
+          <button type="button" class="btn btn-outline" id="tab-btn-vitals" onclick="switchTab('vitals')">Vitals History</button>
+          <button type="button" class="btn btn-outline" id="tab-btn-history" onclick="switchTab('history')">Medical History</button>
+          <button type="button" class="btn btn-outline" id="tab-btn-consult" onclick="switchTab('consult')">Consultations & AI Triage</button>
+          <button type="button" class="btn btn-outline" id="tab-btn-rx" onclick="switchTab('rx')">Prescriptions</button>
+        </div>
+
+        <!-- TAB 1: Patient Info -->
+        <div id="tab-content-info" class="tab-content">
+          <div class="card" style="padding: var(--spacing-6);">
+            <h3 style="margin-bottom: var(--spacing-4); color: var(--primary);">👤 Demographic & Contact Information</h3>
+            <div class="grid grid-cols-2 gap-4">
+              <div><strong class="text-muted">Full Name:</strong> <span id="info-name">—</span></div>
+              <div><strong class="text-muted">Age / Gender:</strong> <span id="info-age-gender">—</span></div>
+              <div><strong class="text-muted">Mobile Number:</strong> <span id="info-mobile">—</span></div>
+              <div><strong class="text-muted">Village / Sector:</strong> <span id="info-village">—</span></div>
+              <div><strong class="text-muted">Blood Group:</strong> <span id="info-blood" class="badge badge-danger">—</span></div>
+              <div><strong class="text-muted">Emergency Contact:</strong> <span id="info-emergency">—</span></div>
+            </div>
+          </div>
+        </div>
+
+        <!-- TAB 2: Vitals History -->
+        <div id="tab-content-vitals" class="tab-content hidden">
+          <div class="card" style="padding: var(--spacing-6);">
+            <h3 style="margin-bottom: var(--spacing-4); color: var(--primary);">🩺 Recorded Vitals History</h3>
+            
+            <div class="stats-grid">
+              <div class="stat-card stat-info">
+                <span class="stat-label">Body Temperature</span>
+                <span class="stat-value" id="vt-val-temp">—</span>
+                <span class="stat-trend text-success"></span>
+              </div>
+
+              <div class="stat-card stat-warning">
+                <span class="stat-label">Blood Pressure</span>
+                <span class="stat-value" id="vt-val-bp">—</span>
+                <span class="stat-trend text-warning"></span>
+              </div>
+
+              <div class="stat-card stat-success">
+                <span class="stat-label">SpO2 Pulse Oximetry</span>
+                <span class="stat-value" id="vt-val-spo2">—</span>
+                <span class="stat-trend text-success"></span>
+              </div>
+
+              <div class="stat-card stat-info">
+                <span class="stat-label">Heart Rate</span>
+                <span class="stat-value" id="vt-val-hr">—</span>
+                <span class="stat-trend text-info"></span>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- TAB 3: Medical History Timeline -->
+        <div id="tab-content-history" class="tab-content hidden">
+          <div class="card" style="padding: var(--spacing-6);">
+            <h3 style="margin-bottom: var(--spacing-4); color: var(--primary);">📜 Chronological Medical Timeline</h3>
+            
+            <div class="data-list">
+              <div id="history-list" class="data-list"></div>
+
+              <div id="history-empty" class="text-muted">No medical history records available.</div>
+
+              <div style="display:none">
+                <div class="data-card-main">
+                  <div class="data-card-info">
+                    <div class="data-card-name">Field Vitals Recorded by ASHA</div>
+                    <div class="data-card-meta">2026-08-01 • Sunita Rani (ASHA) • BP: 130/85 mmHg</div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- TAB 4: Consultations & AI Triage -->
+        <div id="tab-content-consult" class="tab-content hidden">
+          <div class="card" style="padding: var(--spacing-6);">
+            <h3 style="margin-bottom: var(--spacing-4); color: var(--primary);">💬 Consultations & Triage Reports</h3>
+            
+            <div class="alert alert-warning">
+              <div>
+                <strong>AI Preliminary Triage Risk: MODERATE</strong>
+                <p style="margin-bottom: 0;">Flags: Fever, Shortness of Breath. Recommended: Teleconsultation with Doctor.</p>
+              </div>
+            </div>
+
+            <a href="consultation.html" class="btn btn-primary">Start Teleconsultation Video Session</a>
+          </div>
+        </div>
+
+        <!-- TAB 5: Prescriptions -->
+        <div id="tab-content-rx" class="tab-content hidden">
+          <div class="card" style="padding: var(--spacing-6);">
+            <h3 style="margin-bottom: var(--spacing-4); color: var(--primary);">💊 Prescriptions</h3>
+            <a href="prescription.html" class="btn btn-secondary">View Active Prescription Document</a>
+          </div>
+        </div>
+
+      </div>
+    </main>
+  </div>
+
+  <!-- JS Dependencies -->
+  <script src="js/config.js"></script>
+  <script src="js/storage.js"></script>
+  <script src="js/i18n.js"></script>
+  <script src="js/auth.js"></script>
+  <script src="js/indexeddb.js"></script>
+  <script src="js/offline.js"></script>
+  <script src="js/sync.js"></script>
+    <script src="js/api.js"></script>
+  <script src="js/ui.js"></script>
+  <script src="js/app.js"></script>
+
+  <script>
+    document.addEventListener('DOMContentLoaded', async () => {
+      auth.requireAuth();
+      ui.renderAppShell('patients');
+
+      // Load patient record
+      const urlParams = new URLSearchParams(window.location.search);
+      const ptId = urlParams.get('patientId') || urlParams.get('id');
+
+      try {
+        if (!ptId && ['ADMIN','DOCTOR','ASHA'].includes(auth.getCurrentUser()?.role)) {
+          const result = await api.getPatients({page:1,limit:50});
+          document.getElementById('pt-profile-name').textContent = 'Patient directory';
+          document.querySelector('.welcome-subtitle').textContent = 'Select a patient to review demographics, vitals, consultations and prescriptions.';
+          document.getElementById('tab-content-info').innerHTML = `<div class="card" style="padding:var(--spacing-6)"><h3 style="margin-bottom:var(--spacing-4);color:var(--primary)">Patient records</h3><div class="data-list">${(result?.patients||result||[]).map(p=>`<a class="data-card" href="patient-profile.html?patientId=${encodeURIComponent(p.id)}"><div class="data-card-main"><div class="data-card-avatar">${escapeHtml((p.name||'?').slice(0,2).toUpperCase())}</div><div class="data-card-info"><div class="data-card-name">${escapeHtml(p.name)}</div><div class="data-card-meta"><span>${escapeHtml(p.patientCode||'')}</span><span>${escapeHtml(p.age||'')} yrs</span><span>${escapeHtml(p.village||'')}</span></div></div></div><span class="btn-small primary">Open history</span></a>`).join('')||'<div class="empty-state">No patient records found.</div>'}</div></div>`;
+          document.querySelectorAll('[id^="tab-btn-"]:not(#tab-btn-info),[id^="tab-content-"]:not(#tab-content-info)').forEach(node=>node.hidden=true);
+          return;
+        }
+        const patient = ptId ? await api.getPatient(ptId) : await api.getMyPatient();
+        if (patient) {
+        document.getElementById('pt-profile-name').textContent = `${patient.name} (${patient.age}${patient.gender.charAt(0)})`;
+        document.getElementById('info-name').textContent = patient.name;
+        document.getElementById('info-age-gender').textContent = `${patient.age} / ${patient.gender}`;
+        document.getElementById('info-mobile').textContent = patient.mobile || '—';
+        document.getElementById('info-village').textContent = patient.village;
+        document.getElementById('info-blood').textContent = patient.bloodGroup || 'O+';
+        document.getElementById('info-emergency').textContent = patient.emergencyContact || 'N/A';
+        try {
+          const [vitals, history] = await Promise.all([api.getVitals(patient.id), api.getPatientHistory(patient.id)]);
+          const latest = vitals?.[0];
+          if (latest) {
+            document.getElementById('vt-val-temp').textContent = latest.temperature || '—';
+            document.getElementById('vt-val-bp').textContent = latest.systolicBp && latest.diastolicBp ? `${latest.systolicBp}/${latest.diastolicBp}` : '—';
+            document.getElementById('vt-val-spo2').textContent = latest.spo2 ? `${latest.spo2}%` : '—';
+            document.getElementById('vt-val-hr').textContent = latest.heartRate ? `${latest.heartRate} bpm` : '—';
+          }
+          const items = Array.isArray(history?.vitalsHistory) ? history.vitalsHistory : Array.isArray(history) ? history : [];
+          const historyList = document.getElementById('history-list');
+          historyList.innerHTML = items.map(item => `<div class="data-card"><div class="data-card-info"><div class="data-card-name">Vitals recorded</div><div class="data-card-meta">${escapeHtml(item.recordedAt || '')} · BP ${escapeHtml(item.systolicBp||'—')}/${escapeHtml(item.diastolicBp||'—')} · SpO₂ ${escapeHtml(item.spo2||'—')}</div></div></div>`).join('');
+          document.getElementById('history-empty').hidden = items.length > 0;
+          const consultPanel=document.querySelector('#tab-content-consult');
+          if(consultPanel&&history?.consultations){consultPanel.innerHTML=`<div class="card" style="padding:var(--spacing-6)"><h3 style="margin-bottom:var(--spacing-4);color:var(--primary)">Consultation history</h3><div class="data-list">${history.consultations.map(c=>`<div class="data-card"><div class="data-card-info"><div class="data-card-name">${escapeHtml(c.status||'Consultation')} · ${escapeHtml(c.doctor_name||'Care team')}</div><div class="data-card-meta">${escapeHtml(c.created_at||'')} · ${escapeHtml(c.soap_assessment||c.assessment||c.symptoms||'No clinical summary')}</div></div><span class="badge-soft badge-status">${escapeHtml(c.status||'')}</span></div>`).join('')||'<div class="empty-state">No consultations recorded.</div>'}</div></div>`;}
+          const rxPanel=document.querySelector('#tab-content-rx');
+          if(rxPanel&&history?.prescriptions){rxPanel.innerHTML=`<div class="card" style="padding:var(--spacing-6)"><h3 style="margin-bottom:var(--spacing-4);color:var(--primary)">Prescription history</h3><div class="data-list">${history.prescriptions.map(rx=>`<div class="data-card"><div class="data-card-info"><div class="data-card-name">${escapeHtml(rx.assessment||'Prescription')}</div><div class="data-card-meta">${escapeHtml(rx.created_at||'')} · ${escapeHtml(rx.doctor_name||'Doctor')} · ${escapeHtml(rx.item_count)} medicines</div></div><a class="btn-small primary" href="prescription.html?id=${encodeURIComponent(rx.id)}">Open</a></div>`).join('')||'<div class="empty-state">No prescriptions recorded.</div>'}</div></div>`;}
+          } catch (e) { console.warn('Unable to load patient history', e); }
+        }
+      } catch (e) {
+        console.error('Unable to load patient record', e);
+        document.getElementById('pt-profile-name').textContent = 'Unable to load patient';
+        const subtitle = document.querySelector('.welcome-subtitle');
+        if (subtitle) subtitle.textContent = e.message || 'The patient record could not be loaded.';
+      }
+    });
+    function escapeHtml(v){const d=document.createElement('div');d.textContent=v??'';return d.innerHTML;}
+
+    function switchTab(tabId) {
+      document.querySelectorAll('.tab-content').forEach(c => c.classList.add('hidden'));
+      document.querySelectorAll('[id^="tab-btn-"]').forEach(b => b.classList.remove('active'));
+
+      document.getElementById(`tab-content-${tabId}`).classList.remove('hidden');
+      document.getElementById(`tab-btn-${tabId}`).classList.add('active');
+    }
+  </script>
+</body>
+</html>

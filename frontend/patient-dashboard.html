@@ -1,0 +1,44 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <meta name="theme-color" content="#006666">
+  <title>Patient Dashboard | Nabha Telemedicine</title>
+  <link rel="manifest" href="manifest.json">
+  <link rel="stylesheet" href="css/reset.css">
+  <link rel="stylesheet" href="css/variables.css">
+  <link rel="stylesheet" href="css/main.css">
+  <link rel="stylesheet" href="css/components.css">
+  <link rel="stylesheet" href="css/dashboard.css">
+  <link rel="stylesheet" href="css/role-dashboard.css?v=5.0.3">
+  <link rel="stylesheet" href="css/responsive.css">
+  <link rel="stylesheet" href="css/accessibility.css">
+</head>
+<body>
+  <div class="app-container">
+    <div id="app-shell"></div>
+    <div class="main-content-wrapper">
+      <main id="main-content" class="main-content role-dashboard" data-role="PATIENT">
+        <div class="dashboard-loading" id="state" aria-live="polite" hidden>
+          <div class="loading-spinner" aria-hidden="true"></div>
+          <div>
+            <strong>Loading your dashboard</strong>
+            <p>Fetching the latest information securely from the server.</p>
+          </div>
+        </div>
+        <section id="content" aria-label="Dashboard content"></section>
+      </main>
+    </div>
+  </div>
+  <script src="js/config.js?v=5.0.3"></script>
+  <script src="js/storage.js?v=5.0.3"></script>
+  <script src="js/i18n.js?v=5.0.3"></script>
+  <script src="js/api.js?v=5.0.3"></script>
+  <script src="js/auth.js?v=5.0.3"></script>
+  <script src="js/ui.js?v=5.0.3"></script>
+  <script src="js/role-dashboard.js?v=5.0.3"></script>
+  <script src="js/app.js?v=5.0.3"></script>
+  <script>window.NABHA_DASHBOARD_ROLE='PATIENT';</script>
+</body>
+</html>

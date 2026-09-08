@@ -1,0 +1,151 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Offline Sync Engine Monitor — Nabha Telemedicine</title>
+  <link rel="manifest" href="manifest.json">
+  <meta name="theme-color" content="#006666">
+  
+  <!-- CSS Stylesheets -->
+  <link rel="stylesheet" href="css/reset.css">
+  <link rel="stylesheet" href="css/variables.css">
+  <link rel="stylesheet" href="css/main.css">
+  <link rel="stylesheet" href="css/components.css">
+  <link rel="stylesheet" href="css/forms.css">
+  <link rel="stylesheet" href="css/dashboard.css">
+  <link rel="stylesheet" href="css/responsive.css">
+  <link rel="stylesheet" href="css/accessibility.css">
+</head>
+<body>
+
+  <!-- Application Shell Container -->
+  <div class="app-container">
+    <div id="app-shell"></div>
+
+    <!-- Main Content Area -->
+    <main id="main-content" class="main-content-wrapper">
+      <div class="main-content">
+        
+        <!-- Header -->
+        <div class="page-header">
+          <div class="page-header-title">
+            <h1 data-i18n="sync">Offline Sync Engine Monitor</h1>
+            <p class="text-muted">Inspect and manage pending local operations stored in IndexedDB</p>
+          </div>
+          <div class="page-header-actions">
+            <button type="button" class="btn btn-primary btn-sm" onclick="triggerSyncQueue()">⚡ Sync All Pending Now</button>
+          </div>
+        </div>
+
+        <!-- Sync Metrics Cards -->
+        <div class="stats-grid">
+          <div class="stat-card stat-warning">
+            <span class="stat-label">Pending Sync Queue</span>
+            <span class="stat-value" id="queue-pending-count">0</span>
+            <span class="stat-trend text-warning">Records waiting for server connection</span>
+          </div>
+
+          <div class="stat-card stat-danger">
+            <span class="stat-label">Failed Retry Operations</span>
+            <span class="stat-value" id="queue-failed-count">0</span>
+            <span class="stat-trend text-danger">Requires manual retry</span>
+          </div>
+
+          <div class="stat-card stat-success">
+            <span class="stat-label">Local Database Health</span>
+            <span class="stat-value">100%</span>
+            <span class="stat-trend text-success">✓ IndexedDB nabhaTelemedicine Ready</span>
+          </div>
+        </div>
+
+        <!-- Queued Operations Table -->
+        <div class="card" style="padding: var(--spacing-6);">
+          <div class="card-header" style="padding: 0 0 var(--spacing-4) 0; background: none;">
+            <h3 class="card-title">Queued Operations (IndexedDB `syncQueue`)</h3>
+            <button type="button" class="btn btn-outline btn-sm" onclick="loadSyncQueue()">↻ Refresh List</button>
+          </div>
+
+          <div style="overflow-x: auto;">
+            <table class="w-full" style="border: 1px solid var(--border-light); font-size: var(--text-sm);">
+              <thead>
+                <tr style="background-color: var(--surface-alt); text-align: left;">
+                  <th style="padding: 10px;">Op ID</th>
+                  <th style="padding: 10px;">Entity</th>
+                  <th style="padding: 10px;">Action</th>
+                  <th style="padding: 10px;">Created At</th>
+                  <th style="padding: 10px;">Retries</th>
+                  <th style="padding: 10px;">Status</th>
+                </tr>
+              </thead>
+              <tbody id="sync-queue-tbody">
+                <tr>
+                  <td colspan="6" style="padding: 20px; text-align: center;" class="text-muted">
+                    No pending operations in queue. All local data is synced with the server!
+                  </td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+
+      </div>
+    </main>
+  </div>
+
+  <!-- JS Dependencies -->
+  <script src="js/config.js"></script>
+  <script src="js/storage.js"></script>
+  <script src="js/i18n.js"></script>
+  <script src="js/auth.js"></script>
+  <script src="js/indexeddb.js"></script>
+  <script src="js/offline.js"></script>
+  <script src="js/sync.js"></script>
+    <script src="js/api.js"></script>
+  <script src="js/ui.js"></script>
+  <script src="js/app.js"></script>
+
+  <script>
+    document.addEventListener('DOMContentLoaded', async () => {
+      auth.requireAuth();
+      ui.renderAppShell('sync');
+      await loadSyncQueue();
+    });
+
+    async function loadSyncQueue() {
+      const status = await syncEngine.getSyncStatus();
+      document.getElementById('queue-pending-count').textContent = status.pendingCount;
+      document.getElementById('queue-failed-count').textContent = status.failedCount;
+
+      const tbody = document.getElementById('sync-queue-tbody');
+      if (status.operations.length === 0) {
+        tbody.innerHTML = `
+          <tr>
+            <td colspan="6" style="padding: 20px; text-align: center;" class="text-muted">
+              ✓ No pending operations in queue. All local data is synced with the server!
+            </td>
+          </tr>
+        `;
+        return;
+      }
+
+      tbody.innerHTML = status.operations.map(op => `
+        <tr style="border-bottom: 1px solid var(--border-light);">
+          <td style="padding: 10px; font-family: monospace; font-size: var(--text-xs);">${op.operationId.substring(0, 12)}...</td>
+          <td style="padding: 10px; font-weight: 600;">${op.entityType}</td>
+          <td style="padding: 10px;"><span class="badge badge-info">${op.operationType}</span></td>
+          <td style="padding: 10px; font-size: var(--text-xs);">${new Date(op.createdAt).toLocaleTimeString()}</td>
+          <td style="padding: 10px;">${op.retryCount}</td>
+          <td style="padding: 10px;"><span class="badge badge-${op.status === 'PENDING' ? 'warning' : op.status === 'FAILED' ? 'danger' : 'success'}">${op.status}</span></td>
+        </tr>
+      `).join('');
+    }
+
+    async function triggerSyncQueue() {
+      ui.showToast('Processing sync queue...', 'info');
+      await syncEngine.processQueue();
+      await loadSyncQueue();
+    }
+  </script>
+</body>
+</html>

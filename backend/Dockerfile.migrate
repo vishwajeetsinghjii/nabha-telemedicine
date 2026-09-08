@@ -1,0 +1,17 @@
+# Migration-only image. Build context is the project root so the canonical
+# database/migrations directory is available without duplicating migrations.
+FROM node:18-alpine
+
+WORKDIR /app
+
+COPY backend/package*.json ./
+RUN npm ci --omit=dev
+
+COPY backend/src ./src
+COPY database/migrations /database/migrations
+
+ENV NODE_ENV=production
+
+USER node
+
+CMD ["npm", "run", "db:migrate"]

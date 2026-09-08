@@ -1,0 +1,6 @@
+const db=require('../config/database');
+function map(r){return r?{id:r.id,applicationId:r.application_id,userId:r.user_id,documentType:r.document_type,originalName:r.original_name,mimeType:r.mime_type,fileSizeBytes:r.file_size_bytes,sha256:r.sha256,createdAt:r.created_at}:null;}
+async function create(d,client=db){const r=await client.query(`INSERT INTO doctor_verification_documents(application_id,user_id,document_type,original_name,mime_type,file_size_bytes,sha256,content) VALUES($1,$2,$3,$4,$5,$6,$7,$8) RETURNING id,application_id,user_id,document_type,original_name,mime_type,file_size_bytes,sha256,created_at`,[d.applicationId,d.userId,d.documentType,d.originalName,d.mimeType,d.fileSizeBytes,d.sha256,d.content]);return map(r.rows[0]);}
+async function listByApplication(applicationId){const r=await db.query(`SELECT id,application_id,user_id,document_type,original_name,mime_type,file_size_bytes,sha256,created_at FROM doctor_verification_documents WHERE application_id=$1 ORDER BY created_at ASC`,[applicationId]);return r.rows.map(map);}
+async function getByIdForApplication(id,applicationId){const r=await db.query(`SELECT * FROM doctor_verification_documents WHERE id=$1 AND application_id=$2 LIMIT 1`,[id,applicationId]);return r.rows[0]||null;}
+module.exports={create,listByApplication,getByIdForApplication,map};

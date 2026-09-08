@@ -1,0 +1,597 @@
+<!DOCTYPE html>
+
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport"
+          content="width=device-width, initial-scale=1.0">
+
+
+<meta name="description"
+      content="ASHA worker registration for Nabha Telemedicine">
+
+<meta name="theme-color" content="#0f766e">
+
+<title>ASHA Registration | Nabha Telemedicine</title>
+
+<link rel="stylesheet" href="css/global.css">
+<link rel="stylesheet" href="css/asha-register.css">
+
+
+</head>
+
+<body>
+
+<header class="register-header">
+
+
+<a href="index.html" class="brand">
+
+    <span class="brand-mark">N</span>
+
+    <span>
+        <strong>Nabha Telemedicine</strong>
+        <small>Digital Healthcare Platform</small>
+    </span>
+
+</a>
+
+
+<a href="login.html" class="login-link">
+    Already registered? <strong>Login</strong>
+</a>
+
+
+</header>
+
+<main class="registration-page">
+
+<section class="registration-container">
+
+
+<div class="registration-intro">
+
+    <span class="role-badge">ASHA REGISTRATION</span>
+
+    <h1>Register as an ASHA worker</h1>
+
+    <p>
+        Join the community healthcare network and help connect
+        patients with doctors and healthcare services.
+    </p>
+
+
+    <div class="approval-note">
+
+        <strong>Verification required</strong>
+
+        <p>
+            ASHA accounts are reviewed and approved by an
+            authorized administrator before operational access
+            is granted.
+        </p>
+
+    </div>
+
+</div>
+
+
+<form id="ashaRegistrationForm"
+      class="registration-form"
+      enctype="multipart/form-data"
+      novalidate>
+
+
+    <div id="formMessage"
+         class="form-message"
+         role="alert"
+         hidden>
+    </div>
+
+
+    <!-- PERSONAL INFORMATION -->
+
+    <section class="form-section">
+
+        <div class="section-heading">
+
+            <span class="section-number">01</span>
+
+            <div>
+                <h2>Personal information</h2>
+                <p>Enter your identity details.</p>
+            </div>
+
+        </div>
+
+
+        <div class="form-grid">
+
+            <div class="form-group">
+
+                <label for="firstName">
+                    First name <span>*</span>
+                </label>
+
+                <input
+                    id="firstName"
+                    name="firstName"
+                    maxlength="80"
+                    autocomplete="given-name"
+                    required>
+
+                <small id="firstNameError"
+                       class="field-error"></small>
+
+            </div>
+
+
+            <div class="form-group">
+
+                <label for="lastName">
+                    Last name <span>*</span>
+                </label>
+
+                <input
+                    id="lastName"
+                    name="lastName"
+                    maxlength="80"
+                    autocomplete="family-name"
+                    required>
+
+                <small id="lastNameError"
+                       class="field-error"></small>
+
+            </div>
+
+
+            <div class="form-group">
+
+                <label for="dateOfBirth">
+                    Date of birth <span>*</span>
+                </label>
+
+                <input
+                    type="date"
+                    id="dateOfBirth"
+                    name="dateOfBirth"
+                    required>
+
+                <small id="dateOfBirthError"
+                       class="field-error"></small>
+
+            </div>
+
+
+            <div class="form-group">
+
+                <label for="gender">
+                    Gender <span>*</span>
+                </label>
+
+                <select id="gender"
+                        name="gender"
+                        required>
+
+                    <option value="">
+                        Select gender
+                    </option>
+
+                    <option value="Female">
+                        Female
+                    </option>
+
+                    <option value="Male">
+                        Male
+                    </option>
+
+                    <option value="Other">
+                        Other
+                    </option>
+
+                </select>
+
+                <small id="genderError"
+                       class="field-error"></small>
+
+            </div>
+
+        </div>
+
+    </section>
+
+
+    <!-- CONTACT -->
+
+    <section class="form-section">
+
+        <div class="section-heading">
+
+            <span class="section-number">02</span>
+
+            <div>
+                <h2>Contact information</h2>
+                <p>Used for verification and official communication.</p>
+            </div>
+
+        </div>
+
+
+        <div class="form-grid">
+
+            <div class="form-group">
+
+                <label for="mobile">
+                    Mobile number <span>*</span>
+                </label>
+
+                <div class="phone-input">
+
+                    <span>+91</span>
+
+                    <input
+                        type="tel"
+                        id="mobile"
+                        name="mobile"
+                        inputmode="numeric"
+                        maxlength="10"
+                        autocomplete="tel"
+                        required>
+
+                </div>
+
+                <small id="mobileError"
+                       class="field-error"></small>
+
+            </div>
+
+
+            <div class="form-group">
+
+                <label for="email">
+                    Email address
+                </label>
+
+                <input
+                    type="email"
+                    id="email"
+                    name="email"
+                    maxlength="150"
+                    autocomplete="email">
+
+                <small id="emailError"
+                       class="field-error"></small>
+
+            </div>
+
+        </div>
+
+    </section>
+
+
+    <!-- ASHA INFORMATION -->
+
+    <section class="form-section">
+
+        <div class="section-heading">
+
+            <span class="section-number">03</span>
+
+            <div>
+                <h2>ASHA information</h2>
+                <p>Provide your community healthcare details.</p>
+            </div>
+
+        </div>
+
+
+        <div class="form-grid">
+
+            <div class="form-group">
+
+                <label for="ashaId">
+                    ASHA / worker ID
+                </label>
+
+                <input
+                    id="ashaId"
+                    name="ashaId"
+                    maxlength="100"
+                    placeholder="If already assigned">
+
+                <small id="ashaIdError"
+                       class="field-error"></small>
+
+            </div>
+
+
+            <div class="form-group">
+
+                <label for="healthCenter">
+                    Assigned health centre
+                </label>
+
+                <input
+                    id="healthCenter"
+                    name="healthCenter"
+                    maxlength="150"
+                    placeholder="If already assigned">
+
+                <small id="healthCenterError"
+                       class="field-error"></small>
+
+            </div>
+
+
+            <div class="form-group">
+
+                <label for="village">
+                    Primary village / locality <span>*</span>
+                </label>
+
+                <input
+                    id="village"
+                    name="village"
+                    maxlength="120"
+                    required>
+
+                <small id="villageError"
+                       class="field-error"></small>
+
+            </div>
+
+
+            <div class="form-group">
+
+                <label for="district">
+                    District <span>*</span>
+                </label>
+
+                <input
+                    id="district"
+                    name="district"
+                    value="Patiala"
+                    maxlength="100"
+                    required>
+
+                <small id="districtError"
+                       class="field-error"></small>
+
+            </div>
+
+
+            <div class="form-group">
+
+                <label for="state">
+                    State <span>*</span>
+                </label>
+
+                <input
+                    id="state"
+                    name="state"
+                    value="Punjab"
+                    maxlength="100"
+                    required>
+
+                <small id="stateError"
+                       class="field-error"></small>
+
+            </div>
+
+
+            <div class="form-group">
+
+                <label for="pincode">
+                    PIN code <span>*</span>
+                </label>
+
+                <input
+                    id="pincode"
+                    name="pincode"
+                    inputmode="numeric"
+                    maxlength="6"
+                    required>
+
+                <small id="pincodeError"
+                       class="field-error"></small>
+
+            </div>
+
+        </div>
+
+    </section>
+
+
+    <!-- DOCUMENTS -->
+
+    <section class="form-section">
+
+        <div class="section-heading">
+
+            <span class="section-number">04</span>
+
+            <div>
+                <h2>Verification documents</h2>
+                <p>Upload supporting documentation for verification.</p>
+            </div>
+
+        </div>
+
+
+        <div class="document-grid">
+
+
+            <label class="upload-box">
+
+                <strong>Identity document *</strong>
+
+                <span>
+                    Upload an accepted identity document.
+                </span>
+
+                <input
+                    type="file"
+                    id="identityDocument"
+                    name="identityDocument"
+                    accept=".pdf,.jpg,.jpeg,.png"
+                    required>
+
+                <small id="identityDocumentError"
+                       class="field-error"></small>
+
+            </label>
+
+
+            <label class="upload-box">
+
+                <strong>ASHA proof / authorization</strong>
+
+                <span>
+                    Upload your ASHA appointment or authorization
+                    document if available.
+                </span>
+
+                <input
+                    type="file"
+                    id="ashaDocument"
+                    name="ashaDocument"
+                    accept=".pdf,.jpg,.jpeg,.png">
+
+                <small id="ashaDocumentError"
+                       class="field-error"></small>
+
+            </label>
+
+        </div>
+
+    </section>
+
+
+    <!-- ACCOUNT SECURITY -->
+
+    <section class="form-section">
+
+        <div class="section-heading">
+
+            <span class="section-number">05</span>
+
+            <div>
+                <h2>Account security</h2>
+                <p>Create a secure password for your account.</p>
+            </div>
+
+        </div>
+
+
+        <div class="form-grid">
+
+            <div class="form-group">
+
+                <label for="password">
+                    Password <span>*</span>
+                </label>
+
+                <input
+                    type="password"
+                    id="password"
+                    name="password"
+                    autocomplete="new-password"
+                    minlength="8"
+                    maxlength="128"
+                    required>
+
+                <small class="password-hint">
+                    Use uppercase, lowercase, number and
+                    special character.
+                </small>
+
+                <small id="passwordError"
+                       class="field-error"></small>
+
+            </div>
+
+
+            <div class="form-group">
+
+                <label for="confirmPassword">
+                    Confirm password <span>*</span>
+                </label>
+
+                <input
+                    type="password"
+                    id="confirmPassword"
+                    name="confirmPassword"
+                    autocomplete="new-password"
+                    required>
+
+                <small id="confirmPasswordError"
+                       class="field-error"></small>
+
+            </div>
+
+        </div>
+
+    </section>
+
+
+    <section class="consent-section">
+
+        <label class="checkbox-row">
+
+            <input
+                type="checkbox"
+                id="terms"
+                required>
+
+            <span>
+                I confirm that the information provided is accurate
+                and agree to the terms and privacy policy.
+                <span>*</span>
+            </span>
+
+        </label>
+
+    </section>
+
+
+    <button
+        type="submit"
+        id="submitButton"
+        class="primary-button">
+
+        <span class="button-text">
+            Submit ASHA Application
+        </span>
+
+        <span class="button-loader" hidden>
+            Submitting application...
+        </span>
+
+    </button>
+
+
+    <p class="login-footer">
+        Already registered?
+        <a href="login.html">Sign in</a>
+    </p>
+
+
+</form>
+
+
+</section>
+
+</main>
+
+<script src="js/config.js"></script>
+
+<script src="js/api.js"></script>
+
+<script src="js/storage.js"></script>
+
+<script src="js/ui.js"></script>
+
+<script src="js/asha-register.js"></script>
+
+</body>
+</html>

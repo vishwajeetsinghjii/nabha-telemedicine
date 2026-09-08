@@ -1,0 +1,505 @@
+/* =========================================================
+NABHA TELEMEDICINE
+Registration Page
+========================================================= */
+
+.registration-page {
+min-height: 100vh;
+display: flex;
+flex-direction: column;
+background:
+radial-gradient(
+circle at 10% 10%,
+rgba(0, 102, 102, 0.06),
+transparent 30%
+),
+linear-gradient(
+180deg,
+var(--surface, #ffffff),
+var(--background, #f7faf9)
+);
+}
+
+.registration-container {
+width: min(1080px, calc(100% - 32px));
+margin: 0 auto;
+}
+
+/* =========================================================
+HEADER
+========================================================= */
+
+.registration-header {
+background: rgba(255, 255, 255, 0.95);
+border-bottom: 1px solid var(--border, #e5e7eb);
+backdrop-filter: blur(12px);
+}
+
+.registration-nav {
+min-height: 70px;
+display: flex;
+align-items: center;
+justify-content: space-between;
+gap: 20px;
+}
+
+.registration-brand {
+display: inline-flex;
+align-items: center;
+gap: 10px;
+color: var(--primary-dark, #004d4d);
+text-decoration: none;
+font-weight: 800;
+}
+
+.registration-brand-mark {
+width: 40px;
+height: 40px;
+display: grid;
+place-items: center;
+border-radius: 11px;
+background: var(--primary, #006666);
+color: #fff;
+}
+
+.registration-brand-mark svg {
+width: 23px;
+height: 23px;
+}
+
+.registration-nav-right {
+display: flex;
+align-items: center;
+gap: 12px;
+}
+
+.registration-nav-text {
+color: var(--text-secondary, #687373);
+font-size: 0.85rem;
+}
+
+/* =========================================================
+MAIN
+========================================================= */
+
+.registration-main {
+flex: 1;
+padding: 48px 0 60px;
+}
+
+/* =========================================================
+PROGRESS
+========================================================= */
+
+.registration-progress {
+max-width: 680px;
+margin: 0 auto 48px;
+display: flex;
+align-items: center;
+justify-content: center;
+}
+
+.progress-step {
+display: flex;
+flex-direction: column;
+align-items: center;
+gap: 7px;
+min-width: 100px;
+}
+
+.progress-number {
+width: 32px;
+height: 32px;
+display: grid;
+place-items: center;
+border-radius: 50%;
+background: #e9eeee;
+color: #687373;
+font-size: 0.82rem;
+font-weight: 800;
+}
+
+.progress-step.active .progress-number {
+background: var(--primary, #006666);
+color: #fff;
+}
+
+.progress-label {
+color: var(--text-secondary, #687373);
+font-size: 0.72rem;
+font-weight: 650;
+}
+
+.progress-step.active .progress-label {
+color: var(--primary-dark, #004d4d);
+}
+
+.progress-line {
+width: 90px;
+height: 1px;
+margin-bottom: 22px;
+background: #dfe5e4;
+}
+
+/* =========================================================
+HEADING
+========================================================= */
+
+.registration-heading {
+max-width: 700px;
+margin: 0 auto 38px;
+text-align: center;
+}
+
+.registration-eyebrow {
+display: inline-flex;
+margin-bottom: 13px;
+padding: 6px 11px;
+border-radius: 999px;
+background: var(--primary-light, #e8f5f3);
+color: var(--primary-dark, #005555);
+font-size: 0.78rem;
+font-weight: 750;
+}
+
+.registration-heading h1 {
+margin: 0 0 14px;
+color: var(--primary-dark, #004d4d);
+font-size: clamp(2rem, 4vw, 3rem);
+line-height: 1.1;
+letter-spacing: -0.035em;
+}
+
+.registration-heading h1 span {
+display: block;
+color: var(--primary, #006666);
+}
+
+.registration-heading p {
+max-width: 620px;
+margin: 0 auto;
+color: var(--text-secondary, #687373);
+font-size: 1rem;
+line-height: 1.7;
+}
+
+/* =========================================================
+ROLE CARDS
+========================================================= */
+
+.role-selection {
+display: grid;
+grid-template-columns: repeat(3, 1fr);
+gap: 18px;
+}
+
+.registration-role-card {
+width: 100%;
+min-height: 330px;
+display: flex;
+flex-direction: column;
+padding: 26px;
+text-align: left;
+border: 1px solid var(--border, #e1e7e6);
+border-radius: 20px;
+background: #fff;
+cursor: pointer;
+transition:
+transform 0.2s ease,
+box-shadow 0.2s ease,
+border-color 0.2s ease;
+}
+
+.registration-role-card:hover,
+.registration-role-card:focus-visible {
+transform: translateY(-4px);
+border-color: rgba(0, 102, 102, 0.32);
+box-shadow: 0 18px 45px rgba(0, 60, 60, 0.10);
+outline: none;
+}
+
+.registration-role-card:focus-visible {
+box-shadow:
+0 0 0 3px rgba(0, 102, 102, 0.18),
+0 18px 45px rgba(0, 60, 60, 0.10);
+}
+
+.role-card-icon {
+width: 52px;
+height: 52px;
+display: grid;
+place-items: center;
+margin-bottom: 22px;
+border-radius: 15px;
+}
+
+.role-card-icon svg {
+width: 26px;
+height: 26px;
+}
+
+.patient-icon {
+background: #e8f5f3;
+color: #006666;
+}
+
+.asha-icon {
+background: #eef7ed;
+color: #3c7a36;
+}
+
+.doctor-icon {
+background: #edf3fa;
+color: #35658d;
+}
+
+.role-card-content {
+flex: 1;
+}
+
+.role-card-heading {
+display: flex;
+align-items: center;
+justify-content: space-between;
+gap: 12px;
+}
+
+.role-card-heading h3 {
+margin: 0 0 9px;
+color: var(--text-primary, #1f2937);
+font-size: 1.18rem;
+}
+
+.role-arrow {
+color: var(--primary, #006666);
+font-size: 1.25rem;
+opacity: 0;
+transform: translateX(-5px);
+transition:
+opacity 0.2s ease,
+transform 0.2s ease;
+}
+
+.registration-role-card:hover .role-arrow,
+.registration-role-card:focus-visible .role-arrow {
+opacity: 1;
+transform: translateX(0);
+}
+
+.role-card-content p {
+margin: 0 0 18px;
+color: var(--text-secondary, #687373);
+font-size: 0.88rem;
+line-height: 1.6;
+}
+
+.role-card-content ul {
+margin: 0;
+padding-left: 18px;
+color: var(--text-secondary, #687373);
+font-size: 0.83rem;
+line-height: 1.85;
+}
+
+/* =========================================================
+VERIFICATION NOTICE
+========================================================= */
+
+.verification-notice {
+display: grid;
+grid-template-columns: auto 1fr;
+gap: 16px;
+align-items: start;
+max-width: 850px;
+margin: 28px auto 0;
+padding: 20px;
+border: 1px solid rgba(0, 102, 102, 0.12);
+border-radius: 16px;
+background: var(--primary-light, #e8f5f3);
+}
+
+.verification-icon {
+width: 42px;
+height: 42px;
+display: grid;
+place-items: center;
+border-radius: 12px;
+background: #fff;
+color: var(--primary, #006666);
+}
+
+.verification-icon svg {
+width: 22px;
+height: 22px;
+}
+
+.verification-notice h2 {
+margin: 0 0 5px;
+color: var(--primary-dark, #004d4d);
+font-size: 0.95rem;
+}
+
+.verification-notice p {
+margin: 0;
+color: var(--text-secondary, #687373);
+font-size: 0.82rem;
+line-height: 1.55;
+}
+
+/* =========================================================
+ADMIN NOTICE
+========================================================= */
+
+.admin-notice {
+max-width: 850px;
+margin: 12px auto 0;
+display: flex;
+flex-wrap: wrap;
+gap: 6px;
+justify-content: center;
+text-align: center;
+color: var(--text-secondary, #687373);
+font-size: 0.76rem;
+line-height: 1.5;
+}
+
+.admin-notice strong {
+color: var(--text-primary, #394444);
+}
+
+/* =========================================================
+BACK
+========================================================= */
+
+.registration-back {
+margin-top: 32px;
+text-align: center;
+}
+
+.registration-back a {
+color: var(--primary, #006666);
+font-size: 0.86rem;
+font-weight: 650;
+text-decoration: none;
+}
+
+.registration-back a:hover {
+text-decoration: underline;
+}
+
+/* =========================================================
+FOOTER
+========================================================= */
+
+.registration-footer {
+border-top: 1px solid var(--border, #e5e7eb);
+background: #fff;
+}
+
+.footer-content {
+min-height: 58px;
+display: flex;
+align-items: center;
+justify-content: space-between;
+gap: 15px;
+color: var(--text-secondary, #748080);
+font-size: 0.74rem;
+}
+
+/* =========================================================
+RESPONSIVE
+========================================================= */
+
+@media (max-width: 900px) {
+.role-selection {
+grid-template-columns: 1fr;
+max-width: 620px;
+margin: 0 auto;
+}
+
+.registration-role-card {
+min-height: auto;
+flex-direction: row;
+gap: 20px;
+}
+
+.role-card-icon {
+flex-shrink: 0;
+margin-bottom: 0;
+}
+}
+
+@media (max-width: 620px) {
+.registration-container {
+width: min(100% - 22px, 1080px);
+}
+
+.registration-main {
+padding: 32px 0 45px;
+}
+
+.registration-nav-text {
+display: none;
+}
+
+.registration-brand span:last-child {
+display: none;
+}
+
+.registration-progress {
+margin-bottom: 34px;
+}
+
+.progress-step {
+min-width: 75px;
+}
+
+.progress-line {
+width: 45px;
+}
+
+.progress-label {
+font-size: 0.67rem;
+}
+
+.registration-heading {
+margin-bottom: 28px;
+}
+
+.registration-heading h1 {
+font-size: 2rem;
+}
+
+.registration-role-card {
+flex-direction: column;
+gap: 0;
+padding: 22px;
+}
+
+.role-card-icon {
+margin-bottom: 18px;
+}
+
+.verification-notice {
+grid-template-columns: 1fr;
+text-align: center;
+}
+
+.verification-icon {
+margin: 0 auto;
+}
+
+.footer-content {
+flex-direction: column;
+justify-content: center;
+padding: 14px 0;
+text-align: center;
+}
+}
+
+@media (prefers-reduced-motion: reduce) {
+.registration-role-card,
+.role-arrow {
+transition: none;
+}
+}

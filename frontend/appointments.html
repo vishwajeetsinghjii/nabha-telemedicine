@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Appointments — Nabha Telemedicine</title>
+  <link rel="manifest" href="manifest.json">
+  <meta name="theme-color" content="#006666">
+  
+  <!-- CSS Stylesheets -->
+  <link rel="stylesheet" href="css/reset.css?v=5.0.3">
+  <link rel="stylesheet" href="css/variables.css?v=5.0.3">
+  <link rel="stylesheet" href="css/main.css?v=5.0.3">
+  <link rel="stylesheet" href="css/components.css?v=5.0.3">
+  <link rel="stylesheet" href="css/forms.css?v=5.0.3">
+  <link rel="stylesheet" href="css/dashboard.css?v=5.0.3">
+  <link rel="stylesheet" href="css/responsive.css?v=5.0.3">
+  <link rel="stylesheet" href="css/accessibility.css?v=5.0.3">
+</head>
+<body>
+
+  <!-- Application Shell Container -->
+  <div class="app-container">
+    <div id="app-shell"></div>
+
+    <!-- Main Content Area -->
+    <main id="main-content" class="main-content-wrapper">
+      <div class="main-content">
+        
+        <!-- Header -->
+        <div class="page-header">
+          <div class="page-header-title">
+            <h1 data-i18n="appointments">Appointments</h1>
+            <p class="text-muted">Schedule and manage teleconsultations with specialist doctors</p>
+          </div>
+          <div class="page-header-actions">
+            <a href="consultation.html" class="btn btn-primary btn-sm">+ Book Teleconsultation</a>
+          </div>
+        </div>
+
+        <!-- Filter Badges / Tabs -->
+        <div class="flex gap-2" style="margin-bottom: var(--spacing-6); flex-wrap: wrap;">
+          <button type="button" class="btn btn-primary btn-sm" data-appointment-filter="TODAY">Today</button>
+          <button type="button" class="btn btn-outline btn-sm" data-appointment-filter="UPCOMING">Upcoming</button>
+          <button type="button" class="btn btn-outline btn-sm" data-appointment-filter="COMPLETED">Completed</button>
+          <button type="button" class="btn btn-outline btn-sm" data-appointment-filter="CANCELLED">Cancelled</button>
+        </div>
+
+        <!-- Live Appointment List -->
+        <div id="appointments-state" class="state">Loading appointments…</div>
+        <div id="appointments-list" class="data-list" hidden></div>
+      </div>
+    </main>
+  </div>
+
+  <!-- JS Dependencies -->
+  <script src="js/config.js?v=5.0.0"></script>
+  <script src="js/storage.js?v=5.0.0"></script>
+  <script src="js/i18n.js?v=5.0.0"></script>
+  <script src="js/auth.js?v=5.0.0"></script>
+  <script src="js/indexeddb.js?v=5.0.0"></script>
+  <script src="js/offline.js?v=5.0.0"></script>
+  <script src="js/sync.js?v=5.0.0"></script>
+    <script src="js/api.js?v=5.0.0"></script>
+  <script src="js/ui.js?v=5.0.0"></script>
+  <script src="js/app.js?v=5.0.0"></script>
+
+  <script>
+    document.addEventListener('DOMContentLoaded', async () => {
+      if (!auth.requireAuth()) return;
+      ui.renderAppShell('appointments');
+      const state = document.getElementById('appointments-state');
+      const list = document.getElementById('appointments-list');
+      let all=[];
+      const render=(filter='ALL')=>{const now=Date.now();const items=all.filter(a=>{if(filter==='UPCOMING')return new Date(a.scheduledAt).getTime()>=now&&a.status!=='CANCELLED'&&a.status!=='COMPLETED';if(filter==='COMPLETED')return a.status==='COMPLETED';if(filter==='CANCELLED')return a.status==='CANCELLED';if(filter==='TODAY'){const d=new Date(a.scheduledAt),n=new Date();return d.toDateString()===n.toDateString();}return true;});if(!items.length){state.hidden=false;state.className='state';state.textContent='No appointments found for this view.';list.hidden=true;return;}state.hidden=true;list.hidden=false;list.innerHTML=items.map(a=>{const when=a.scheduledAt?new Date(a.scheduledAt).toLocaleString():'Time not set';const who=a.doctorName||a.ashaName||'Care team';return `<div class="data-card"><div class="data-card-main"><div class="data-card-avatar">${escapeHtml((who.match(/[A-Za-z]/g)||['C']).slice(0,2).join(''))}</div><div class="data-card-info"><div class="data-card-name">${escapeHtml(who)} <span class="badge badge-info">${escapeHtml(a.status)}</span></div><div class="data-card-meta">📅 ${escapeHtml(when)} · ${escapeHtml(a.consultationType||'VIDEO')}</div></div></div><div class="data-card-actions"><a href="consultation.html?patientId=${encodeURIComponent(a.patientId)}&appointmentId=${encodeURIComponent(a.id)}" class="btn btn-primary btn-sm">Open</a></div></div>`;}).join('');};
+      try{all=await api.getAppointments({limit:100});render('TODAY');document.querySelectorAll('[data-appointment-filter]').forEach(btn=>btn.addEventListener('click',()=>{document.querySelectorAll('[data-appointment-filter]').forEach(x=>x.classList.remove('btn-primary'));document.querySelectorAll('[data-appointment-filter]').forEach(x=>x.classList.add('btn-outline'));btn.classList.add('btn-primary');btn.classList.remove('btn-outline');render(btn.dataset.appointmentFilter);}));}catch(e){state.textContent=e.message||'Unable to load appointments.';state.className='state error-state';}
+    });
+    function escapeHtml(v){const d=document.createElement('div');d.textContent=v??'';return d.innerHTML;}
+  </script>
+
+</body>
+</html>

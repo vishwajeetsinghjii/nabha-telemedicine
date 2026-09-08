@@ -1,0 +1,106 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Emergency Help — Nabha Telemedicine</title>
+  <link rel="manifest" href="manifest.json">
+  <meta name="theme-color" content="#dc2626">
+  
+  <!-- CSS Stylesheets -->
+  <link rel="stylesheet" href="css/reset.css">
+  <link rel="stylesheet" href="css/variables.css">
+  <link rel="stylesheet" href="css/main.css">
+  <link rel="stylesheet" href="css/components.css">
+  <link rel="stylesheet" href="css/forms.css">
+  <link rel="stylesheet" href="css/dashboard.css">
+  <link rel="stylesheet" href="css/responsive.css">
+  <link rel="stylesheet" href="css/accessibility.css">
+</head>
+<body style="background-color: var(--emergency-light); display: flex; flex-direction: column; min-height: 100vh;">
+
+  <!-- Header -->
+  <header class="app-header" style="border-bottom-color: var(--danger-border); background-color: white;">
+    <a href="dashboard.html" class="header-brand">
+      <svg class="header-brand-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M22 12h-4l-3 9L9 3l-3 9H2"/></svg>
+      <span data-i18n="app_name">Nabha Telemedicine</span>
+    </a>
+
+    <div class="lang-selector">
+      <select class="lang-select-input" id="emergency-lang-select" aria-label="Select Language" onchange="i18n.setLanguage(this.value)">
+        <option value="en">English</option>
+        <option value="hi">हिंदी (Hindi)</option>
+        <option value="pa">ਪੰਜਾਬੀ (Punjabi)</option>
+      </select>
+    </div>
+  </header>
+
+  <!-- Main Content -->
+  <main class="main-content" style="max-width: 600px; margin: auto; padding: var(--spacing-6) var(--spacing-4);">
+    
+    <div class="card" style="padding: var(--spacing-6); border: 2px solid var(--emergency); box-shadow: var(--shadow-lg);">
+      
+      <div style="text-align: center; margin-bottom: var(--spacing-6);">
+        <div style="width: 72px; height: 72px; margin: 0 auto var(--spacing-4) auto; background-color: var(--emergency-light); color: var(--emergency); border-radius: 50%; display: flex; align-items: center; justify-content: center; border: 3px solid var(--emergency);">
+          <svg width="40" height="40" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M10.29 3.86L1.82 18a2 2 0 0 0 1.71 3h16.94a2 2 0 0 0 1.71-3L13.71 3.86a2 2 0 0 0-3.42 0z"/><line x1="12" y1="9" x2="12" y2="13"/><line x1="12" y1="17" x2="12.01" y2="17"/></svg>
+        </div>
+
+        <h1 style="font-size: var(--text-3xl); color: var(--emergency-dark); margin-bottom: var(--spacing-2);">⚠ Emergency Help</h1>
+        <p style="font-size: var(--text-lg); color: var(--text); font-weight: 600;">
+          If someone is experiencing a severe or life-threatening emergency, seek immediate medical assistance.
+        </p>
+      </div>
+
+      <!-- Action Buttons Grid -->
+      <div class="flex flex-col gap-4">
+        
+        <a href="tel:108" class="btn btn-emergency btn-lg btn-block" style="justify-content: flex-start; padding: 16px 24px;">
+          <span style="font-size: 28px; margin-right: 12px;">📞</span>
+          <div style="text-align: left;">
+            <div style="font-size: var(--text-lg); font-weight: 700;">Call National Helpline (108)</div>
+            <div style="font-size: var(--text-xs); opacity: 0.9;">Toll-free 24/7 Medical Emergency Response</div>
+          </div>
+        </a>
+
+        <a href="tel:102" class="btn btn-primary btn-lg btn-block" style="background-color: #0369a1; border-color: #0369a1; justify-content: flex-start; padding: 16px 24px;">
+          <span style="font-size: 28px; margin-right: 12px;">🚑</span>
+          <div style="text-align: left;">
+            <div style="font-size: var(--text-lg); font-weight: 700;">Call Ambulance Service (102)</div>
+            <div style="font-size: var(--text-xs); opacity: 0.9;">Free Patient Transport Dispatch</div>
+          </div>
+        </a>
+
+        <a href="tel:+9118001801104" class="btn btn-outline btn-lg btn-block" style="justify-content: flex-start; padding: 16px 24px; border-color: var(--text-secondary);">
+          <span style="font-size: 28px; margin-right: 12px;">🏥</span>
+          <div style="text-align: left;">
+            <div style="font-size: var(--text-lg); font-weight: 700;">Call Nabha Primary Health Centre</div>
+            <div style="font-size: var(--text-xs); color: var(--text-muted);">+91-175-220101 (Local Duty Doctor)</div>
+          </div>
+        </a>
+
+      </div>
+
+      <!-- Return Button -->
+      <div style="margin-top: var(--spacing-6); text-align: center;">
+        <a href="dashboard.html" class="btn btn-outline btn-block">← Return to Application</a>
+      </div>
+
+    </div>
+
+  </main>
+
+  <!-- JS Dependencies -->
+  <script src="js/config.js"></script>
+  <script src="js/storage.js"></script>
+  <script src="js/i18n.js"></script>
+  <script src="js/auth.js"></script>
+  <script src="js/indexeddb.js"></script>
+  <script src="js/offline.js"></script>
+  <script src="js/sync.js"></script>
+  <script src="js/ai.js"></script>
+    <script src="js/api.js"></script>
+  <script src="js/validation.js"></script>
+  <script src="js/ui.js"></script>
+  <script src="js/app.js"></script>
+</body>
+</html>

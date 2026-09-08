@@ -1,0 +1,5 @@
+
+.symptom-checker-section{background:linear-gradient(180deg,#f7fbfa,#fff)}
+.symptom-checker-card{max-width:920px;margin:0 auto;padding:28px;border:1px solid var(--border,#dfe8e6);border-radius:24px;background:#fff;box-shadow:0 18px 50px rgba(0,55,55,.08)}
+.symptom-grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:16px}.symptom-full{grid-column:1/-1}.symptom-actions{display:flex;flex-wrap:wrap;gap:12px;margin-top:8px}.symptom-disclaimer{margin:18px 0 0;font-size:.84rem;color:var(--text-secondary,#5f6b6b)}
+.symptom-result{margin-top:22px;padding:22px;border-radius:18px;border:1px solid var(--border,#dfe8e6);background:#f8fbfa}.symptom-result.emergency,.symptom-result.high{border-left:6px solid #b42318}.symptom-result.moderate{border-left:6px solid #b54708}.symptom-result.low{border-left:6px solid #16845b}.symptom-risk{font-size:1.25rem;font-weight:800;margin-bottom:10px}.symptom-result ul{margin:10px 0 0 20px}@media(max-width:700px){.symptom-grid{grid-template-columns:1fr}.symptom-full{grid-column:auto}.symptom-checker-card{padding:18px}}

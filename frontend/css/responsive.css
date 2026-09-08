@@ -1,0 +1,293 @@
+/* ==========================================================================
+   Responsive Stylesheet - Nabha Rural Telemedicine Platform
+   Clean Desktop Sidebar + Top Header & Mobile Bottom Navigation
+   ========================================================================== */
+
+#app-shell {
+  display: contents;
+}
+
+.app-container {
+  display: flex;
+  min-height: 100vh;
+  width: 100%;
+}
+
+.main-content-wrapper {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  min-width: 0;
+  width: 100%;
+  background: transparent;
+}
+
+/* App Header (Top bar spanning the content area) */
+.app-header {
+  position: sticky;
+  top: 0;
+  z-index: 40;
+  height: var(--header-height);
+  background: rgba(255, 255, 255, .88);
+  border-bottom: 1px solid var(--border-light);
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 0 var(--spacing-6);
+  box-shadow: 0 4px 18px rgba(15, 52, 70, .05);
+  -webkit-backdrop-filter: blur(14px);
+  backdrop-filter: blur(14px);
+  width: 100%;
+}
+
+.header-brand {
+  display: flex;
+  align-items: center;
+  gap: var(--spacing-2);
+  font-size: var(--text-lg);
+  font-weight: 700;
+  color: var(--primary);
+  text-decoration: none;
+}
+
+@media (min-width: 768px) {
+  .app-header .header-brand {
+    display: none !important;
+  }
+}
+
+.header-brand-icon {
+  width: 28px;
+  height: 28px;
+  color: var(--primary);
+}
+
+.header-actions {
+  display: flex;
+  align-items: center;
+  gap: var(--spacing-3);
+}
+
+/* Desktop Sidebar (Left Pane, 250px) */
+.app-sidebar {
+  width: var(--sidebar-width);
+  flex-shrink: 0;
+  height: 100vh;
+  position: sticky;
+  top: 0;
+  background: rgba(255, 255, 255, .94);
+  border-right: 1px solid var(--border-light);
+  display: flex;
+  flex-direction: column;
+  z-index: 50;
+}
+
+.sidebar-backdrop {
+  display: none;
+  position: fixed;
+  inset: 0;
+  background-color: rgba(0, 0, 0, 0.4);
+  z-index: 199;
+}
+
+.sidebar-header {
+  height: var(--header-height);
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 0 var(--spacing-4);
+  border-bottom: 1px solid var(--border-light);
+}
+
+.sidebar-user {
+  padding: var(--spacing-4);
+  border-bottom: 1px solid var(--border-light);
+  background-color: var(--surface-alt);
+  display: flex;
+  align-items: center;
+  gap: var(--spacing-3);
+}
+
+.sidebar-user-avatar {
+  width: 40px;
+  height: 40px;
+  border-radius: var(--radius-full);
+  background-color: var(--primary-light);
+  color: var(--primary);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-weight: 700;
+}
+
+.sidebar-user-details {
+  display: flex;
+  flex-direction: column;
+  min-width: 0;
+}
+
+.sidebar-user-name {
+  font-size: var(--text-sm);
+  font-weight: 700;
+  color: var(--text);
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.sidebar-nav {
+  flex: 1;
+  padding: var(--spacing-3) var(--spacing-2);
+  display: flex;
+  flex-direction: column;
+  gap: var(--spacing-1);
+  overflow-y: auto;
+}
+
+.sidebar-link {
+  display: flex;
+  align-items: center;
+  gap: var(--spacing-3);
+  padding: var(--spacing-2) var(--spacing-3);
+  border-radius: var(--radius-md);
+  font-size: var(--text-sm);
+  font-weight: 600;
+  color: var(--text-secondary);
+  text-decoration: none;
+  min-height: var(--touch-target-min);
+  transition: all var(--transition-fast);
+}
+
+.sidebar-link:hover {
+  background: linear-gradient(90deg, var(--primary-light), #fff);
+  color: var(--primary);
+  transform: translateX(2px);
+}
+
+.sidebar-link.active {
+  background: linear-gradient(90deg, #dff3f1, #edf9f7);
+  color: var(--primary-dark);
+  font-weight: 700;
+  box-shadow: inset 3px 0 0 var(--primary);
+}
+
+.sidebar-link-icon {
+  width: 20px;
+  height: 20px;
+  flex-shrink: 0;
+}
+
+.sidebar-footer {
+  padding: var(--spacing-3) var(--spacing-4);
+  border-top: 1px solid var(--border-light);
+  display: flex;
+  flex-direction: column;
+  gap: var(--spacing-2);
+}
+
+/* Mobile Bottom Navigation Bar */
+.bottom-nav {
+  display: none;
+  position: fixed;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  height: var(--bottom-nav-height);
+  background-color: var(--surface);
+  border-top: 1px solid var(--border-light);
+  align-items: center;
+  justify-content: space-around;
+  z-index: 100;
+  padding-bottom: env(safe-area-inset-bottom);
+  box-shadow: 0 -2px 10px rgba(0, 0, 0, 0.05);
+}
+
+.bottom-nav-item {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 2px;
+  flex: 1;
+  height: 100%;
+  text-decoration: none;
+  color: var(--text-muted);
+  font-size: var(--text-xs);
+  font-weight: 600;
+  transition: color var(--transition-fast);
+  touch-action: manipulation;
+}
+
+.bottom-nav-item:hover,
+.bottom-nav-item.active {
+  color: var(--primary);
+}
+
+.bottom-nav-icon {
+  width: 22px;
+  height: 22px;
+}
+
+.menu-toggle-btn {
+  display: none;
+}
+
+/* --------------------------------------------------------------------------
+   Mobile Layout (< 768px)
+   -------------------------------------------------------------------------- */
+@media (max-width: 767px) {
+  .app-container {
+    flex-direction: column;
+  }
+
+  .app-sidebar {
+    display: none;
+    position: fixed;
+    top: 0;
+    left: 0;
+    bottom: 0;
+    box-shadow: var(--shadow-lg);
+    z-index: 200;
+  }
+
+  .app-sidebar.is-open {
+    display: flex;
+  }
+
+  .sidebar-backdrop.is-open {
+    display: block;
+  }
+
+  .bottom-nav {
+    display: flex;
+  }
+
+  .menu-toggle-btn {
+    display: inline-flex;
+  }
+
+  .app-header {
+    padding: 0 var(--spacing-4);
+  }
+
+  .main-content {
+    padding: var(--spacing-4);
+    padding-bottom: calc(var(--bottom-nav-height) + var(--spacing-6));
+  }
+}
+
+/* --------------------------------------------------------------------------
+   Small Mobile Tweaks (320px - 375px)
+   -------------------------------------------------------------------------- */
+@media (max-width: 375px) {
+  :root {
+    --text-3xl: 1.5rem;
+    --text-2xl: 1.25rem;
+    --text-xl: 1.125rem;
+  }
+
+  .main-content {
+    padding: var(--spacing-3);
+    padding-bottom: calc(var(--bottom-nav-height) + var(--spacing-4));
+  }
+}

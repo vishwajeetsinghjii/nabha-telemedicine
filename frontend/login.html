@@ -1,0 +1,452 @@
+<!DOCTYPE html>
+
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport"
+          content="width=device-width, initial-scale=1.0">
+
+
+<meta
+    name="description"
+    content="Sign in to your Nabha Telemedicine account."
+>
+
+<meta
+    name="theme-color"
+    content="#006666"
+>
+
+<meta
+    name="color-scheme"
+    content="light"
+>
+
+<link rel="manifest" href="manifest.json">
+
+<!-- Global design system -->
+<link rel="stylesheet" href="css/reset.css">
+<link rel="stylesheet" href="css/variables.css">
+<link rel="stylesheet" href="css/main.css">
+<link rel="stylesheet" href="css/components.css">
+<link rel="stylesheet" href="css/forms.css">
+<link rel="stylesheet" href="css/responsive.css">
+<link rel="stylesheet" href="css/accessibility.css">
+
+<!-- Login-specific styles -->
+<link rel="stylesheet" href="css/login.css">
+
+<title>Login | Nabha Telemedicine</title>
+
+
+</head>
+
+<body class="login-page">
+
+
+<!-- =========================================================
+     HEADER
+     ========================================================= -->
+
+<header class="login-header">
+
+    <div class="login-container login-nav">
+
+        <a
+            href="index.html"
+            class="login-brand"
+            aria-label="Nabha Telemedicine home"
+        >
+
+            <span
+                class="login-brand-mark"
+                aria-hidden="true"
+            >
+                <svg
+                    viewBox="0 0 24 24"
+                    fill="none"
+                    stroke="currentColor"
+                    stroke-width="2"
+                    stroke-linecap="round"
+                    stroke-linejoin="round"
+                >
+                    <path d="M22 12h-4l-3 9L9 3l-3 9H2"></path>
+                </svg>
+            </span>
+
+            <span class="login-brand-name">
+                Nabha Telemedicine
+            </span>
+
+        </a>
+
+
+        <div class="login-nav-right">
+
+            <span class="login-nav-text">
+                Don't have an account?
+            </span>
+
+            <a
+                href="register.html"
+                class="btn btn-outline btn-sm"
+            >
+                Create Account
+            </a>
+
+        </div>
+
+    </div>
+
+</header>
+
+
+<!-- =========================================================
+     MAIN
+     ========================================================= -->
+
+<main class="login-main">
+
+    <div class="login-container">
+
+        <section
+            class="login-card"
+            aria-labelledby="login-title"
+        >
+
+            <!-- Header -->
+
+            <div class="login-card-header">
+
+                <div class="login-icon" aria-hidden="true">
+
+                    <svg
+                        viewBox="0 0 24 24"
+                        fill="none"
+                        stroke="currentColor"
+                        stroke-width="1.8"
+                        stroke-linecap="round"
+                        stroke-linejoin="round"
+                    >
+                        <rect
+                            x="4"
+                            y="10"
+                            width="16"
+                            height="11"
+                            rx="2"
+                        ></rect>
+
+                        <path d="M8 10V7a4 4 0 0 1 8 0v3"></path>
+
+                        <circle
+                            cx="12"
+                            cy="15"
+                            r="1"
+                        ></circle>
+
+                        <path d="M12 16v2"></path>
+                    </svg>
+
+                </div>
+
+
+                <div class="login-heading">
+
+                    <div class="login-eyebrow">
+                        Secure sign in
+                    </div>
+
+                    <h1 id="login-title">
+                        Welcome back
+                    </h1>
+
+                    <p>
+                        Sign in using the mobile number or email
+                        address associated with your account.
+                    </p>
+
+                </div>
+
+            </div>
+
+
+            <!-- Form message -->
+
+            <div
+                id="loginMessage"
+                class="login-message"
+                role="alert"
+                aria-live="polite"
+                hidden
+            ></div>
+
+
+            <!-- =================================================
+                 LOGIN FORM
+                 ================================================= -->
+
+            <form
+                id="loginForm"
+                class="login-form"
+                novalidate
+                autocomplete="on"
+            >
+
+                <!-- Identifier -->
+
+                <div class="form-field">
+
+                    <label for="identifier">
+                        Mobile number or email
+                    </label>
+
+                    <input
+                        type="text"
+                        id="identifier"
+                        name="identifier"
+                        autocomplete="username"
+                        inputmode="email"
+                        placeholder="Enter mobile number or email"
+                        maxlength="150"
+                        required
+                        aria-describedby="identifierHint identifierError"
+                    >
+
+                    <small
+                        id="identifierHint"
+                        class="field-hint"
+                    >
+                        You can use the mobile number or email
+                        registered with your account.
+                    </small>
+
+                    <small
+                        id="identifierError"
+                        class="field-error"
+                        role="alert"
+                    ></small>
+
+                </div>
+
+
+                <!-- Password -->
+
+                <div class="form-field">
+
+                    <div class="field-label-row">
+
+                        <label for="password">
+                            Password
+                        </label>
+
+                        <a
+                            href="forgot-password.html"
+                            class="forgot-password"
+                        >
+                            Forgot password?
+                        </a>
+
+                    </div>
+
+
+                    <div class="password-wrapper">
+
+                        <input
+                            type="password"
+                            id="password"
+                            name="password"
+                            autocomplete="current-password"
+                            placeholder="Enter your password"
+                            maxlength="128"
+                            required
+                            aria-describedby="passwordError"
+                        >
+
+                        <button
+                            type="button"
+                            id="togglePassword"
+                            class="password-toggle"
+                            aria-label="Show password"
+                            aria-pressed="false"
+                        >
+                            <svg
+                                id="eyeIcon"
+                                viewBox="0 0 24 24"
+                                fill="none"
+                                stroke="currentColor"
+                                stroke-width="1.8"
+                                stroke-linecap="round"
+                                stroke-linejoin="round"
+                                aria-hidden="true"
+                            >
+                                <path
+                                    d="M2 12s3.5-6 10-6 10 6 10 6-3.5 6-10 6S2 12 2 12Z"
+                                ></path>
+
+                                <circle
+                                    cx="12"
+                                    cy="12"
+                                    r="2.5"
+                                ></circle>
+                            </svg>
+                        </button>
+
+                    </div>
+
+
+                    <small
+                        id="passwordError"
+                        class="field-error"
+                        role="alert"
+                    ></small>
+
+                </div>
+
+
+                <!-- Remember me -->
+
+                <div class="login-options">
+
+                    <label class="remember-me">
+
+                        <input
+                            type="checkbox"
+                            id="rememberMe"
+                            name="rememberMe"
+                        >
+
+                        <span>
+                            Keep me signed in
+                        </span>
+
+                    </label>
+
+                </div>
+
+
+                <!-- Submit -->
+
+                <button
+                    type="submit"
+                    id="loginButton"
+                    class="login-submit"
+                >
+
+                    <span
+                        id="loginButtonText"
+                    >
+                        Sign In
+                    </span>
+
+                    <span
+                        id="loginButtonLoader"
+                        hidden
+                    >
+                        Signing in...
+                    </span>
+
+                </button>
+
+            </form>
+
+
+            <!-- Account creation -->
+
+            <div class="create-account">
+
+                <span>
+                    Don't have a Nabha Telemedicine account?
+                </span>
+
+                <a href="register.html">
+                    Create an account
+                </a>
+
+            </div>
+
+
+            <!-- Security information -->
+
+            <div class="login-security">
+
+                <svg
+                    viewBox="0 0 24 24"
+                    fill="none"
+                    stroke="currentColor"
+                    stroke-width="1.7"
+                    stroke-linecap="round"
+                    stroke-linejoin="round"
+                    aria-hidden="true"
+                >
+                    <path
+                        d="M12 3l8 4v5c0 4.8-3.4 8.2-8 9-4.6-.8-8-4.2-8-9V7l8-4Z"
+                    ></path>
+
+                    <path
+                        d="M9 12l2 2 4-4"
+                    ></path>
+                </svg>
+
+                <p>
+                    Your account credentials are securely
+                    processed by the Nabha Telemedicine platform.
+                </p>
+
+            </div>
+
+        </section>
+
+    </div>
+
+</main>
+
+
+<!-- =========================================================
+     FOOTER
+     ========================================================= -->
+
+<footer class="login-footer">
+
+    <div class="login-container login-footer-content">
+
+        <span>
+            © 2026 Nabha Telemedicine
+        </span>
+
+        <div class="login-footer-links">
+
+            <a href="index.html">
+                Home
+            </a>
+
+            <a href="privacy.html">
+                Privacy
+            </a>
+
+            <a href="terms.html">
+                Terms
+            </a>
+
+        </div>
+
+    </div>
+
+</footer>
+
+
+<!-- =========================================================
+     JAVASCRIPT
+     ========================================================= -->
+
+<script src="js/config.js?v=3.3.0"></script>
+<script src="js/storage.js"></script>
+<script src="js/i18n.js"></script>
+<script src="js/api.js?v=3.3.0"></script>
+<script src="js/ui.js"></script>
+<script src="js/auth.js?v=3.3.0"></script>
+<script src="js/login.js?v=3.3.0"></script>
+<script src="js/app.js"></script>
+
+
+</body>
+</html>

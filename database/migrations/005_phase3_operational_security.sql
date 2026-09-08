@@ -1,0 +1,12 @@
+BEGIN;
+ALTER TABLE users ADD COLUMN IF NOT EXISTS health_center_id UUID REFERENCES health_centers(id) ON DELETE SET NULL;
+ALTER TABLE patients ADD COLUMN IF NOT EXISTS health_center_id UUID REFERENCES health_centers(id) ON DELETE SET NULL;
+CREATE INDEX IF NOT EXISTS idx_users_health_center ON users(health_center_id);
+CREATE INDEX IF NOT EXISTS idx_appointments_patient ON appointments(patient_id);
+CREATE INDEX IF NOT EXISTS idx_appointments_asha ON appointments(asha_id);
+CREATE INDEX IF NOT EXISTS idx_prescriptions_patient ON prescriptions(patient_id);
+CREATE INDEX IF NOT EXISTS idx_prescriptions_doctor ON prescriptions(doctor_id);
+CREATE INDEX IF NOT EXISTS idx_consultations_appointment ON consultations(appointment_id);
+CREATE INDEX IF NOT EXISTS idx_patients_user ON patients(user_id);
+CREATE INDEX IF NOT EXISTS idx_assignments_center_user ON user_center_assignments(health_center_id,user_id);
+COMMIT;

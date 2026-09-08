@@ -1,0 +1,120 @@
+services:
+  postgres:
+    image: postgres:16-alpine
+    restart: unless-stopped
+    environment:
+      POSTGRES_DB: ${POSTGRES_DB:-nabha_telemedicine}
+      POSTGRES_USER: ${POSTGRES_USER:-nabha_app}
+      POSTGRES_PASSWORD: ${POSTGRES_PASSWORD:-CHANGE_ME_LONG_RANDOM_PASSWORD}
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+    ports:
+      - "${POSTGRES_PORT:-5432}:5432"
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U $${POSTGRES_USER} -d $${POSTGRES_DB}"]
+      interval: 10s
+      timeout: 5s
+      retries: 10
+      start_period: 10s
+
+  ai-service:
+    build: ./ai-service
+    restart: unless-stopped
+    environment:
+      PORT: 8001
+      ENVIRONMENT: production
+      CORS_ORIGINS: ${AI_CORS_ORIGINS:-http://localhost:5000,http://localhost:8000}
+    healthcheck:
+      test: ["CMD-SHELL", "python -c \"import urllib.request; urllib.request.urlopen('http://127.0.0.1:8001/health', timeout=3)\" || exit 1"]
+      interval: 30s
+      timeout: 5s
+      retries: 5
+    ports:
+      - "${AI_PORT:-8001}:8001"
+
+  migrate:
+    build:
+      context: .
+      dockerfile: backend/Dockerfile.migrate
+    restart: "no"
+    environment:
+      NODE_ENV: ${NODE_ENV:-development}
+      DATABASE_URL: postgresql://${POSTGRES_USER}:${POSTGRES_PASSWORD}@postgres:5432/${POSTGRES_DB}
+      PGHOST: postgres
+      PGPORT: 5432
+      PGUSER: ${POSTGRES_USER:-nabha_app}
+      PGPASSWORD: ${POSTGRES_PASSWORD:-CHANGE_ME_LONG_RANDOM_PASSWORD}
+      PGDATABASE: ${POSTGRES_DB:-nabha_telemedicine}
+      MIGRATION_DB_RETRIES: 20
+      MIGRATION_DB_RETRY_DELAY_MS: 3000
+      JWT_SECRET: ${JWT_SECRET:-NabhaLocalJWTSecret_ChangeThis_32Chars_Minimum_2026}
+      JWT_REFRESH_SECRET: ${JWT_REFRESH_SECRET:-NabhaLocalRefreshSecret_Different_32Chars_2026}
+      IVR_WEBHOOK_SECRET: ${IVR_WEBHOOK_SECRET:-NabhaLocalIVRWebhookSecret_ChangeThis}
+      VIDEO_PROVIDER: ${VIDEO_PROVIDER:-zoom}
+      IVR_PROVIDER: ${IVR_PROVIDER:-exotel}
+    command: ["npm", "run", "db:migrate"]
+    depends_on:
+      postgres:
+        condition: service_healthy
+
+  backend:
+    build: ./backend
+    restart: unless-stopped
+    environment:
+      NODE_ENV: ${NODE_ENV:-development}
+      PORT: 5000
+      DATABASE_URL: postgresql://${POSTGRES_USER}:${POSTGRES_PASSWORD}@postgres:5432/${POSTGRES_DB}
+      PGHOST: postgres
+      PGPORT: 5432
+      PGUSER: ${POSTGRES_USER:-nabha_app}
+      PGPASSWORD: ${POSTGRES_PASSWORD:-CHANGE_ME_LONG_RANDOM_PASSWORD}
+      PGDATABASE: ${POSTGRES_DB:-nabha_telemedicine}
+      JWT_SECRET: ${JWT_SECRET:-NabhaLocalJWTSecret_ChangeThis_32Chars_Minimum_2026}
+      JWT_REFRESH_SECRET: ${JWT_REFRESH_SECRET:-NabhaLocalRefreshSecret_Different_32Chars_2026}
+      IVR_WEBHOOK_SECRET: ${IVR_WEBHOOK_SECRET:-NabhaLocalIVRWebhookSecret_ChangeThis}
+      CORS_ORIGIN: ${CORS_ORIGIN:-http://localhost:8000}
+      AI_PROVIDER: ${AI_PROVIDER:-fastapi}
+      AI_SERVICE_URL: http://ai-service:8001
+      VIDEO_PROVIDER: ${VIDEO_PROVIDER:-zoom}
+      IVR_PROVIDER: ${IVR_PROVIDER:-exotel}
+      AGORA_APP_ID: ${AGORA_APP_ID:-}
+      AGORA_APP_CERTIFICATE: ${AGORA_APP_CERTIFICATE:-}
+      ZOOM_ACCOUNT_ID: ${ZOOM_ACCOUNT_ID:-}
+      ZOOM_CLIENT_ID: ${ZOOM_CLIENT_ID:-}
+      ZOOM_CLIENT_SECRET: ${ZOOM_CLIENT_SECRET:-}
+      EXOTEL_API_KEY: ${EXOTEL_API_KEY:-}
+      EXOTEL_API_TOKEN: ${EXOTEL_API_TOKEN:-}
+      EXOTEL_WEBHOOK_SECRET: ${EXOTEL_WEBHOOK_SECRET:-}
+      EMAIL_PROVIDER: ${EMAIL_PROVIDER:-}
+      EMAIL_API_KEY: ${EMAIL_API_KEY:-}
+      EMAIL_FROM: ${EMAIL_FROM:-}
+      FRONTEND_BASE_URL: ${FRONTEND_BASE_URL:-http://localhost:8000}
+      PASSWORD_RESET_EXPIRES_MINUTES: ${PASSWORD_RESET_EXPIRES_MINUTES:-30}
+      ALLOW_PASSWORD_RESET_LOG: ${ALLOW_PASSWORD_RESET_LOG:-false}
+      SEED_PASSWORD: ${SEED_PASSWORD:-}
+    healthcheck:
+      test: ["CMD-SHELL", "wget -q -O - http://127.0.0.1:5000/health || exit 1"]
+      interval: 30s
+      timeout: 5s
+      retries: 5
+    ports:
+      - "${BACKEND_PORT:-5000}:5000"
+    depends_on:
+      postgres:
+        condition: service_healthy
+      migrate:
+        condition: service_completed_successfully
+      ai-service:
+        condition: service_healthy
+
+  frontend:
+    build: ./frontend
+    restart: unless-stopped
+    ports:
+      - "${FRONTEND_PORT:-8000}:80"
+    depends_on:
+      backend:
+        condition: service_healthy
+
+volumes:
+  postgres_data:

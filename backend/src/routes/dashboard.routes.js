@@ -1,0 +1,1 @@
+const express=require('express');const router=express.Router();const auth=require('../middleware/auth.middleware');const c=require('../controllers/dashboard.controller');router.get('/',auth,c.dashboard);module.exports=router;

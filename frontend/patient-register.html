@@ -1,0 +1,484 @@
+<!DOCTYPE html>
+
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+
+<meta name="description"
+      content="Register as a patient with Nabha Telemedicine">
+
+<meta name="theme-color" content="#0f766e">
+
+<title>Patient Registration | Nabha Telemedicine</title>
+
+<link rel="stylesheet" href="css/global.css">
+<link rel="stylesheet" href="css/patient-register.css">
+
+
+</head>
+
+<body>
+
+<header class="register-header">
+    <a href="index.html" class="brand">
+        <span class="brand-mark">N</span>
+        <span>
+            <strong>Nabha Telemedicine</strong>
+            <small>Digital Healthcare Platform</small>
+        </span>
+    </a>
+
+
+<a href="login.html" class="login-link">
+    Already have an account? <strong>Login</strong>
+</a>
+
+
+</header>
+
+<main class="registration-page">
+
+
+<section class="registration-container">
+
+    <div class="registration-intro">
+        <span class="role-badge">PATIENT REGISTRATION</span>
+
+        <h1>Create your patient account</h1>
+
+        <p>
+            Register to access teleconsultations, appointments,
+            prescriptions, medical history and healthcare services.
+        </p>
+
+        <div class="security-note">
+            <span class="security-icon">🔒</span>
+            <div>
+                <strong>Your information is protected</strong>
+                <p>
+                    Your information will be handled according to
+                    applicable healthcare privacy and security requirements.
+                </p>
+            </div>
+        </div>
+    </div>
+
+
+    <form id="patientRegistrationForm"
+          class="registration-form"
+          novalidate>
+
+        <div id="formMessage"
+             class="form-message"
+             role="alert"
+             hidden>
+        </div>
+
+
+        <!-- PERSONAL INFORMATION -->
+
+        <section class="form-section">
+
+            <div class="section-heading">
+                <span class="section-number">01</span>
+
+                <div>
+                    <h2>Personal information</h2>
+                    <p>Enter your basic identity information.</p>
+                </div>
+            </div>
+
+
+            <div class="form-grid">
+
+                <div class="form-group">
+                    <label for="firstName">
+                        First name <span>*</span>
+                    </label>
+
+                    <input
+                        type="text"
+                        id="firstName"
+                        name="firstName"
+                        autocomplete="given-name"
+                        maxlength="80"
+                        required>
+
+                    <small class="field-error"
+                           id="firstNameError"></small>
+                </div>
+
+
+                <div class="form-group">
+                    <label for="lastName">
+                        Last name <span>*</span>
+                    </label>
+
+                    <input
+                        type="text"
+                        id="lastName"
+                        name="lastName"
+                        autocomplete="family-name"
+                        maxlength="80"
+                        required>
+
+                    <small class="field-error"
+                           id="lastNameError"></small>
+                </div>
+
+
+                <div class="form-group">
+                    <label for="dateOfBirth">
+                        Date of birth <span>*</span>
+                    </label>
+
+                    <input
+                        type="date"
+                        id="dateOfBirth"
+                        name="dateOfBirth"
+                        autocomplete="bday"
+                        required>
+
+                    <small class="field-error"
+                           id="dateOfBirthError"></small>
+                </div>
+
+
+                <div class="form-group">
+                    <label for="gender">
+                        Gender <span>*</span>
+                    </label>
+
+                    <select id="gender"
+                            name="gender"
+                            required>
+
+                        <option value="">Select gender</option>
+                        <option value="Male">Male</option>
+                        <option value="Female">Female</option>
+                        <option value="Other">Other</option>
+                        <option value="Other">
+                            Prefer not to say
+                        </option>
+
+                    </select>
+
+                    <small class="field-error"
+                           id="genderError"></small>
+                </div>
+
+            </div>
+
+        </section>
+
+
+        <!-- CONTACT INFORMATION -->
+
+        <section class="form-section">
+
+            <div class="section-heading">
+                <span class="section-number">02</span>
+
+                <div>
+                    <h2>Contact information</h2>
+                    <p>We'll use this information for verification.</p>
+                </div>
+            </div>
+
+
+            <div class="form-grid">
+
+                <div class="form-group">
+                    <label for="mobile">
+                        Mobile number <span>*</span>
+                    </label>
+
+                    <div class="phone-input">
+                        <span>+91</span>
+
+                        <input
+                            type="tel"
+                            id="mobile"
+                            name="mobile"
+                            inputmode="numeric"
+                            autocomplete="tel"
+                            maxlength="10"
+                            placeholder="10-digit mobile number"
+                            required>
+                    </div>
+
+                    <small class="field-error"
+                           id="mobileError"></small>
+                </div>
+
+
+                <div class="form-group">
+                    <label for="email">
+                        Email address
+                    </label>
+
+                    <input
+                        type="email"
+                        id="email"
+                        name="email"
+                        autocomplete="email"
+                        maxlength="150"
+                        placeholder="Optional">
+
+                    <small class="field-error"
+                           id="emailError"></small>
+                </div>
+
+            </div>
+
+        </section>
+
+
+        <!-- ADDRESS -->
+
+        <section class="form-section">
+
+            <div class="section-heading">
+                <span class="section-number">03</span>
+
+                <div>
+                    <h2>Address</h2>
+                    <p>Help us connect you with the appropriate healthcare centre.</p>
+                </div>
+            </div>
+
+
+            <div class="form-grid">
+
+                <div class="form-group full-width">
+                    <label for="address">
+                        Address <span>*</span>
+                    </label>
+
+                    <textarea
+                        id="address"
+                        name="address"
+                        rows="3"
+                        maxlength="300"
+                        autocomplete="street-address"
+                        required></textarea>
+
+                    <small class="field-error"
+                           id="addressError"></small>
+                </div>
+
+
+                <div class="form-group">
+                    <label for="village">
+                        Village / locality <span>*</span>
+                    </label>
+
+                    <input
+                        type="text"
+                        id="village"
+                        name="village"
+                        maxlength="120"
+                        required>
+
+                    <small class="field-error"
+                           id="villageError"></small>
+                </div>
+
+
+                <div class="form-group">
+                    <label for="district">
+                        District <span>*</span>
+                    </label>
+
+                    <input
+                        type="text"
+                        id="district"
+                        name="district"
+                        value="Patiala"
+                        maxlength="100"
+                        required>
+
+                    <small class="field-error"
+                           id="districtError"></small>
+                </div>
+
+
+                <div class="form-group">
+                    <label for="state">
+                        State <span>*</span>
+                    </label>
+
+                    <input
+                        type="text"
+                        id="state"
+                        name="state"
+                        value="Punjab"
+                        maxlength="100"
+                        required>
+                </div>
+
+
+                <div class="form-group">
+                    <label for="pincode">
+                        PIN code <span>*</span>
+                    </label>
+
+                    <input
+                        type="text"
+                        id="pincode"
+                        name="pincode"
+                        inputmode="numeric"
+                        maxlength="6"
+                        required>
+
+                    <small class="field-error"
+                           id="pincodeError"></small>
+                </div>
+
+            </div>
+
+        </section>
+
+
+        <!-- ACCOUNT -->
+
+        <section class="form-section">
+
+            <div class="section-heading">
+                <span class="section-number">04</span>
+
+                <div>
+                    <h2>Account security</h2>
+                    <p>Choose how you want to secure your account.</p>
+                </div>
+            </div>
+
+
+            <div class="form-grid">
+
+                <div class="form-group">
+                    <label for="password">
+                        Password <span>*</span>
+                    </label>
+
+                    <input
+                        type="password"
+                        id="password"
+                        name="password"
+                        autocomplete="new-password"
+                        minlength="8"
+                        maxlength="128"
+                        required>
+
+                    <small class="password-hint">
+                        Use at least 8 characters with uppercase,
+                        lowercase, number and special character.
+                    </small>
+
+                    <small class="field-error"
+                           id="passwordError"></small>
+                </div>
+
+
+                <div class="form-group">
+                    <label for="confirmPassword">
+                        Confirm password <span>*</span>
+                    </label>
+
+                    <input
+                        type="password"
+                        id="confirmPassword"
+                        name="confirmPassword"
+                        autocomplete="new-password"
+                        required>
+
+                    <small class="field-error"
+                           id="confirmPasswordError"></small>
+                </div>
+
+            </div>
+
+        </section>
+
+
+        <!-- CONSENT -->
+
+        <section class="consent-section">
+
+            <label class="checkbox-row">
+
+                <input
+                    type="checkbox"
+                    id="terms"
+                    name="terms"
+                    required>
+
+                <span>
+                    I agree to the platform's terms of service,
+                    privacy policy and consent requirements.
+                    <span>*</span>
+                </span>
+
+            </label>
+
+
+            <label class="checkbox-row">
+
+                <input
+                    type="checkbox"
+                    id="communicationConsent"
+                    name="communicationConsent">
+
+                <span>
+                    I agree to receive healthcare-related
+                    notifications and appointment reminders.
+                </span>
+
+            </label>
+
+        </section>
+
+
+        <button
+            type="submit"
+            id="submitButton"
+            class="primary-button">
+
+            <span class="button-text">
+                Create Patient Account
+            </span>
+
+            <span class="button-loader"
+                  hidden>
+                Creating account...
+            </span>
+
+        </button>
+
+
+        <p class="login-footer">
+            Already registered?
+            <a href="login.html">Sign in to your account</a>
+        </p>
+
+    </form>
+
+</section>
+
+
+</main>
+
+<script src="js/config.js"></script>
+
+<script src="js/api.js"></script>
+
+<script src="js/storage.js"></script>
+
+<script src="js/ui.js"></script>
+
+<script src="js/patient-register.js"></script>
+
+</body>
+</html>

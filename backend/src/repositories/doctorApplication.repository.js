@@ -1,0 +1,7 @@
+const db=require('../config/database');
+function map(r){return{id:r.id,userId:r.user_id,fullName:r.full_name,mobile:r.mobile,email:r.email,qualification:r.qualification,licenseNumber:r.license_number,specialization:r.specialization,experienceYears:r.experience_years,preferredCenterId:r.preferred_center_id,status:r.status,reviewerId:r.reviewer_id,reviewNotes:r.review_notes,createdAt:r.created_at,updatedAt:r.updated_at};}
+async function create(d){const r=await db.query(`INSERT INTO doctor_applications(user_id,full_name,mobile,email,qualification,license_number,specialization,experience_years,preferred_center_id,status) VALUES($1,$2,$3,$4,$5,$6,$7,$8,$9,'PENDING') RETURNING *`,[d.userId,d.fullName,d.mobile,d.email,d.qualification,d.licenseNumber,d.specialization,d.experienceYears||0,d.preferredCenterId||null]);return map(r.rows[0]);}
+async function findAll(status){const r=await db.query(`SELECT * FROM doctor_applications ${status?'WHERE status=$1 ':''}ORDER BY created_at DESC`,status?[status]:[]);return r.rows.map(map)}
+async function findById(id){const r=await db.query('SELECT * FROM doctor_applications WHERE id=$1',[id]);return r.rows[0]?map(r.rows[0]):null}
+async function updateStatus(id,status,reviewerId,notes=''){const r=await db.query(`UPDATE doctor_applications SET status=$2,reviewer_id=$3,review_notes=$4,updated_at=NOW() WHERE id=$1 RETURNING *`,[id,status,reviewerId,notes]);return r.rows[0]?map(r.rows[0]):null}
+module.exports={create,findAll,findById,updateStatus};

@@ -1,0 +1,500 @@
+<!DOCTYPE html>
+
+<html lang="en">
+<head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Nabha Telemedicine — Accessible Healthcare, Wherever You Are</title>
+<meta content="Nabha Telemedicine connects patients and healthcare workers with doctors through secure digital healthcare services, including teleconsultations and offline-capable workflows." name="description"/>
+<meta content="#006666" name="theme-color"/>
+<meta content="light" name="color-scheme"/>
+<link href="manifest.json" rel="manifest"/>
+<!-- Existing design system -->
+<link href="css/reset.css" rel="stylesheet"/>
+<link href="css/variables.css" rel="stylesheet"/>
+<link href="css/main.css" rel="stylesheet"/>
+<link href="css/components.css" rel="stylesheet"/>
+<link href="css/forms.css" rel="stylesheet"/>
+<link href="css/dashboard.css" rel="stylesheet"/>
+<link href="css/responsive.css" rel="stylesheet"/>
+<link href="css/accessibility.css" rel="stylesheet"/>
+<link href="css/symptom-checker.css" rel="stylesheet"/>
+<link href="css/landing.css" rel="stylesheet"/>
+</head>
+<body class="landing-page" data-i18n-page-title="page_title">
+<!-- =========================================================
+       HEADER
+       ========================================================= -->
+<header class="landing-header">
+<div class="landing-container landing-nav">
+<a aria-label="Nabha Telemedicine home" class="landing-brand" href="index.html">
+<span aria-hidden="true" class="landing-brand-mark">
+<svg fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" viewbox="0 0 24 24">
+<path d="M22 12h-4l-3 9L9 3l-3 9H2"></path>
+</svg>
+</span>
+<span data-i18n="app_name">
+      Nabha Telemedicine
+    </span>
+</a>
+<nav aria-label="Main navigation" class="landing-nav-actions">
+<div class="landing-language">
+<label class="sr-only" for="landing-lang-select">
+        Select language
+      </label>
+<select aria-label="Select language" id="landing-lang-select" onchange="i18n.setLanguage(this.value)">
+<option value="en">English</option>
+<option value="hi">हिंदी</option>
+<option value="pa">ਪੰਜਾਬੀ</option>
+</select>
+</div>
+<a class="btn btn-primary" data-i18n="login" href="login.html">
+      Login
+    </a>
+</nav>
+</div>
+</header>
+<main>
+<!-- =======================================================
+     HERO
+     ======================================================= -->
+<section class="hero">
+<div class="landing-container hero-grid">
+<div class="hero-content">
+<div class="hero-eyebrow">
+<span aria-hidden="true" class="hero-eyebrow-dot"></span>
+<span data-i18n="hero_eyebrow">Healthcare that reaches you</span>
+</div>
+<h1>
+<span data-i18n="hero_title">Better healthcare,</span>
+<span data-i18n="hero_title_accent">closer to home.</span>
+</h1>
+<p class="hero-description">
+<span data-i18n="hero_description">Nabha Telemedicine helps patients and healthcare workers connect with doctors through accessible digital healthcare services—even when internet connectivity is limited.</span>
+</p>
+<div class="hero-actions">
+<a class="btn btn-primary btn-lg" data-i18n="get_started" href="register.html">
+          Get Started
+        </a>
+<a class="btn btn-outline btn-lg" data-i18n="already_account" href="login.html">
+          I already have an account
+        </a>
+</div>
+<div class="hero-trust">
+<span class="hero-trust-item">
+<svg aria-hidden="true" fill="none" stroke="currentColor" stroke-width="2" viewbox="0 0 24 24">
+<path d="M20 6L9 17l-5-5"></path>
+</svg>
+<span data-i18n="rural_healthcare">Designed for rural healthcare</span>
+</span>
+<span class="hero-trust-item">
+<svg aria-hidden="true" fill="none" stroke="currentColor" stroke-width="2" viewbox="0 0 24 24">
+<path d="M20 6L9 17l-5-5"></path>
+</svg>
+<span data-i18n="offline_workflows">Offline-capable workflows</span>
+</span>
+<span class="hero-trust-item">
+<svg aria-hidden="true" fill="none" stroke="currentColor" stroke-width="2" viewbox="0 0 24 24">
+<path d="M20 6L9 17l-5-5"></path>
+</svg>
+<span data-i18n="multilingual_support">Multilingual support</span>
+</span>
+</div>
+</div>
+<!-- Hero product preview -->
+<div aria-label="Telemedicine service preview" class="hero-visual">
+<div class="hero-card">
+<div class="hero-card-header">
+<div class="hero-card-title">
+<div aria-hidden="true" class="hero-card-icon">
+<svg fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" viewbox="0 0 24 24">
+<path d="M3 12h3l2-7 4 14 2-7h7"></path>
+</svg>
+</div>
+<div>
+<strong data-i18n="teleconsultation">Teleconsultation</strong>
+<small data-i18n="healthcare_at_center">Healthcare at your center</small>
+</div>
+</div>
+<span class="status-pill" data-i18n="connected">
+            Connected
+          </span>
+</div>
+<div class="consultation-preview">
+<div class="consultation-preview-top">
+<div>
+<div class="consultation-preview-label" data-i18n="consultation">
+                Consultation
+              </div>
+<div class="consultation-preview-value" data-i18n="general_medicine">
+                General Medicine
+              </div>
+</div>
+<div>
+<div class="consultation-preview-label" data-i18n="status">
+                Status
+              </div>
+<div class="consultation-preview-value" data-i18n="ready">
+                Ready
+              </div>
+</div>
+</div>
+<div class="doctor-preview">
+<div class="doctor-avatar">
+              Dr
+            </div>
+<div>
+<strong><span data-i18n="doctor_consultation">Doctor Consultation</span></strong>
+<small><span data-i18n="secure_digital_session">Secure digital healthcare session</span></small>
+</div>
+</div>
+</div>
+<div class="hero-stat-row">
+<div class="hero-stat">
+<strong><span data-i18n="offline">Offline</span></strong>
+<span><span data-i18n="workflows">Workflows</span></span>
+</div>
+<div class="hero-stat">
+<strong><span data-i18n="secure">Secure</span></strong>
+<span><span data-i18n="access">Access</span></span>
+</div>
+<div class="hero-stat">
+<strong>24/7</strong>
+<span><span data-i18n="access_platform">Access platform</span></span>
+</div>
+</div>
+</div>
+</div>
+</div>
+</section>
+<!-- =======================================================
+     SERVICES
+     ======================================================= -->
+<section class="landing-section">
+<div class="landing-container">
+<div class="section-heading">
+<h2>
+<span data-i18n="services_title">Healthcare services built around your needs</span>
+</h2>
+<p data-i18n="services_description">
+        One platform connecting patients, community health workers,
+        doctors and healthcare administrators.
+      </p>
+</div>
+<div class="service-grid">
+<article class="service-card">
+<div aria-hidden="true" class="service-icon">
+<svg fill="none" stroke="currentColor" stroke-width="2" viewbox="0 0 24 24">
+<path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"></path>
+<circle cx="12" cy="7" r="4"></circle>
+</svg>
+</div>
+<h3><span data-i18n="patient_care">Patient Care</span></h3>
+<p data-i18n="patient_care_desc">
+          Manage your healthcare information, appointments,
+          consultations, prescriptions and follow-ups in one place.
+        </p>
+</article>
+<article class="service-card">
+<div aria-hidden="true" class="service-icon">
+<svg fill="none" stroke="currentColor" stroke-width="2" viewbox="0 0 24 24">
+<path d="M12 2v20"></path>
+<path d="M2 12h20"></path>
+<path d="M5 7h14"></path>
+<path d="M5 17h14"></path>
+</svg>
+</div>
+<h3><span data-i18n="asha_support">ASHA Support</span></h3>
+<p data-i18n="asha_support_desc">
+          Help community health workers register patients, record
+          information and coordinate care from their assigned areas.
+        </p>
+</article>
+<article class="service-card">
+<div aria-hidden="true" class="service-icon">
+<svg fill="none" stroke="currentColor" stroke-width="2" viewbox="0 0 24 24">
+<path d="M19 8h-1V5a6 6 0 0 0-12 0v3H5a2 2 0 0 0-2 2v9a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2v-9a2 2 0 0 0-2-2Z"></path>
+<path d="M12 12v4"></path>
+</svg>
+</div>
+<h3><span data-i18n="doctor_consultations">Doctor Consultations</span></h3>
+<p data-i18n="doctor_consultations_desc">
+          Enable doctors to review patient information, conduct
+          teleconsultations and provide digital care plans.
+        </p>
+</article>
+<article class="service-card">
+<div aria-hidden="true" class="service-icon">
+<svg fill="none" stroke="currentColor" stroke-width="2" viewbox="0 0 24 24">
+<path d="M12 3v18"></path>
+<path d="M3 12h18"></path>
+<circle cx="12" cy="12" r="9"></circle>
+</svg>
+</div>
+<h3><span data-i18n="offline_capable_care">Offline-Capable Care</span></h3>
+<p data-i18n="offline_care_desc">
+          Continue supported workflows during limited connectivity
+          and synchronize information when a connection becomes available.
+        </p>
+</article>
+</div>
+</div>
+</section>
+<!-- =======================================================
+     HOW IT WORKS
+     ======================================================= -->
+<section class="landing-section how-it-works">
+<div class="landing-container">
+<div class="section-heading">
+<h2>
+<span data-i18n="how_title">How Nabha Telemedicine works</span>
+</h2>
+<p>
+<span data-i18n="how_description">Simple access for patients and healthcare teams, with role-based services behind the scenes.</span>
+</p>
+</div>
+<div class="steps">
+<article class="step">
+<div class="step-number">
+          1
+        </div>
+<h3 data-i18n="step1_title">Create an account or sign in</h3>
+<p data-i18n="step1_description">
+          New users complete the appropriate registration process.
+          Existing users securely sign in to their account.
+        </p>
+</article>
+<article class="step">
+<div class="step-number">
+          2
+        </div>
+<h3 data-i18n="step2_title">Access your healthcare workspace</h3>
+<p data-i18n="step2_description">
+          Your account type determines the services and information
+          available to you.
+        </p>
+</article>
+<article class="step">
+<div class="step-number">
+          3
+        </div>
+<h3 data-i18n="step3_title">Connect and manage care</h3>
+<p data-i18n="step3_description">
+          Book appointments, manage patient information or
+          participate in teleconsultations according to your role.
+        </p>
+</article>
+<article class="step">
+<div class="step-number">
+          4
+        </div>
+<h3><span data-i18n="step4_title">Continue care with limited connectivity</span></h3>
+<p data-i18n="step4_description">
+          Supported offline workflows can continue locally and
+          synchronize with the healthcare platform when connectivity returns.
+        </p>
+</article>
+</div>
+</div>
+</section>
+<!-- =======================================================
+     USER TYPES
+     ======================================================= -->
+<section class="landing-section">
+<div class="landing-container">
+<div class="section-heading">
+<h2><span data-i18n="roles_title">One platform, three healthcare roles</span>
+</h2>
+<p>
+<span data-i18n="roles_description">Each user receives access based on their verified account and permissions.</span>
+</p>
+</div>
+<div class="role-grid">
+<article class="role-card">
+<div aria-hidden="true" class="role-card-icon">
+          👤
+        </div>
+<h3><span data-i18n="patients">Patients</span></h3>
+<p data-i18n="patient_role_desc">
+          Access personal healthcare services and stay connected
+          with your care team.
+        </p>
+<ul>
+<li><span data-i18n="manage_profile">Manage your profile</span></li>
+<li><span data-i18n="book_appointments">Book appointments</span></li>
+<li><span data-i18n="attend_consultations">Attend consultations</span></li>
+<li><span data-i18n="view_prescriptions_history">View prescriptions and history</span></li>
+</ul>
+</article>
+<article class="role-card">
+<div aria-hidden="true" class="role-card-icon">
+          🩺
+        </div>
+<h3><span data-i18n="asha_workers">ASHA Workers</span></h3>
+<p data-i18n="asha_role_desc">
+          Support patients in the community and coordinate care
+          with healthcare teams.
+        </p>
+<ul>
+<li><span data-i18n="register_assist_patients">Register and assist patients</span></li>
+<li><span data-i18n="record_health_information">Record supported health information</span></li>
+<li><span data-i18n="coordinate_appointments">Coordinate appointments</span></li>
+<li><span data-i18n="work_assigned_areas">Work within assigned areas</span></li>
+</ul>
+</article>
+<article class="role-card">
+<div aria-hidden="true" class="role-card-icon">
+          👨‍⚕️
+        </div>
+<h3><span data-i18n="doctors">Doctors</span></h3>
+<p data-i18n="doctor_role_desc">
+          Provide remote consultations and manage care for
+          authorized patients.
+        </p>
+<ul>
+<li><span data-i18n="review_patient_information">Review patient information</span></li>
+<li><span data-i18n="conduct_consultations">Conduct consultations</span></li>
+<li><span data-i18n="create_prescriptions">Create prescriptions</span></li>
+<li><span data-i18n="manage_followups">Manage follow-ups</span></li>
+</ul>
+</article>
+</div>
+</div>
+</section>
+<!-- =======================================================
+     SAFETY / EMERGENCY
+     ======================================================= -->
+<section class="safety-section">
+<div class="landing-container">
+<div class="safety-card">
+<div aria-hidden="true" class="safety-icon">
+<svg fill="none" stroke="currentColor" stroke-width="2" viewbox="0 0 24 24">
+<path d="M10.3 3.3 1.9 18a2 2 0 0 0 1.7 3h16.8a2 2 0 0 0 1.7-3L13.7 3.3a2 2 0 0 0-3.4 0Z"></path>
+<path d="M12 9v4"></path>
+<path d="M12 17h.01"></path>
+</svg>
+</div>
+<div>
+<h2><span data-i18n="emergency_title">Need emergency medical help?</span></h2>
+<p>
+<span data-i18n="emergency_description">Nabha Telemedicine is not a replacement for emergency medical services. For a life-threatening emergency, contact your local emergency medical service immediately.</span>
+</p>
+</div>
+<a class="btn btn-emergency" data-i18n="emergency_information" href="emergency.html">
+        Emergency Information
+      </a>
+</div>
+</div>
+</section>
+<!-- =======================================================
+     FINAL CTA
+     ======================================================= -->
+<section class="landing-section symptom-checker-section" id="symptom-checker">
+<div class="landing-container">
+<div class="section-heading">
+<span class="hero-eyebrow" data-i18n="symptom_checker_badge">AI health guidance</span>
+<h2 data-i18n="symptom_checker_title">Check your symptoms before you book</h2>
+<p data-i18n="symptom_checker_description">Describe what you are feeling. Our AI provides preliminary triage guidance without requiring an account.</p>
+</div>
+<div class="symptom-checker-card">
+<form id="public-symptom-form" novalidate="">
+<div class="symptom-grid">
+<div class="form-group symptom-full">
+<label class="form-label form-label-required" data-i18n="symptoms_label" for="public-symptoms">Symptoms</label>
+<textarea class="form-control" data-i18n-placeholder="symptoms_placeholder" id="public-symptoms" maxlength="4000" placeholder="Example: fever and cough for two days" required="" rows="5"></textarea>
+</div>
+<div class="form-group"><label class="form-label" data-i18n="age_label" for="public-age">Age</label><input class="form-control" id="public-age" inputmode="numeric" max="120" min="0" type="number"/></div>
+<div class="form-group"><label class="form-label" data-i18n="gender_label" for="public-gender">Gender</label><select class="form-control" id="public-gender"><option data-i18n="prefer_not_to_say" value="">Prefer not to say</option><option data-i18n="female" value="Female">Female</option><option data-i18n="male" value="Male">Male</option><option data-i18n="other" value="Other">Other</option></select></div>
+<div class="form-group"><label class="form-label" data-i18n="spo2_label" for="public-spo2">SpO₂ (%) — optional</label><input class="form-control" id="public-spo2" inputmode="numeric" max="100" min="50" type="number"/></div>
+<div class="form-group"><label class="form-label" data-i18n="temperature_label" for="public-temp">Temperature — optional</label><input class="form-control" id="public-temp" placeholder="°F" step="0.1" type="number"/></div>
+</div>
+<div class="symptom-actions"><button class="btn btn-primary btn-lg" data-i18n="check_symptoms" id="public-symptom-button" type="submit">Check symptoms</button><a class="btn btn-outline btn-lg" data-i18n="book_doctor" href="register.html">Book a doctor after checking</a></div>
+<p class="symptom-disclaimer" data-i18n="symptom_disclaimer">AI guidance is preliminary and is not a diagnosis. For severe or life-threatening symptoms, call emergency services immediately.</p>
+</form>
+<div aria-live="polite" class="symptom-result" hidden="" id="public-symptom-result"></div>
+</div>
+</div>
+</section>
+<section class="final-cta">
+<div class="landing-container">
+<div class="cta-card">
+<h2>
+<span data-i18n="cta_title">Start your healthcare journey</span>
+</h2>
+<p>
+<span data-i18n="cta_description">Create your account to access Nabha Telemedicine, or sign in if you are already registered.</span>
+</p>
+<div class="cta-actions">
+<a class="btn btn-lg btn-light" data-i18n="get_started" href="register.html">
+          Get Started
+        </a>
+<a class="btn btn-lg btn-outline-light" data-i18n="login" href="login.html">
+          Login
+        </a>
+</div>
+</div>
+</div>
+</section>
+</main>
+<!-- =========================================================
+       FOOTER
+       ========================================================= -->
+<footer class="landing-footer">
+<div class="landing-container">
+<div class="footer-grid">
+<div class="footer-brand">
+<a class="landing-brand" href="index.html">
+<span aria-hidden="true" class="landing-brand-mark">
+<svg fill="none" stroke="currentColor" stroke-width="2" viewbox="0 0 24 24">
+<path d="M22 12h-4l-3 9L9 3l-3 9H2"></path>
+</svg>
+</span>
+<span data-i18n="app_name">
+          Nabha Telemedicine
+        </span>
+</a>
+<p>
+<span data-i18n="footer_description">A digital healthcare platform designed to improve access to healthcare services across rural and underserved communities.</span>
+</p>
+</div>
+<div class="footer-column">
+<h3><span data-i18n="footer_platform">Platform</span></h3>
+<a data-i18n="get_started" href="register.html">Get Started</a>
+<a data-i18n="login" href="login.html">Login</a>
+<a data-i18n="emergency_information" href="emergency.html"><span data-i18n="emergency_information">Emergency Information</span></a>
+</div>
+<div class="footer-column">
+<h3><span data-i18n="footer_users">For Users</span></h3>
+<a href="register.html"><span data-i18n="patients">Patients</span></a>
+<a href="register.html"><span data-i18n="asha_workers">ASHA Workers</span></a>
+<a href="register.html"><span data-i18n="doctors">Doctors</span></a>
+</div>
+<div class="footer-column">
+<h3><span data-i18n="footer_information">Information</span></h3>
+<a href="#"><span data-i18n="about_nabha">About Nabha Telemedicine</span></a>
+<a href="#"><span data-i18n="privacy">Privacy</span></a>
+<a href="#"><span data-i18n="terms">Terms</span></a>
+</div>
+</div>
+<div class="footer-bottom">
+<span>
+<span data-i18n="copyright">© 2026 Nabha Telemedicine. All rights reserved.</span>
+</span>
+<span>
+<span data-i18n="healthcare_access_platform">Healthcare access platform</span>
+</span>
+</div>
+</div>
+</footer>
+<!-- =========================================================
+       JAVASCRIPT
+       ========================================================= -->
+<script src="js/config.js"></script>
+<script src="js/storage.js"></script>
+<script src="js/i18n.js"></script>
+<script src="js/api.js"></script>
+<script src="js/ui.js"></script>
+<script src="js/ai-checker.js"></script>
+<script src="js/app.js"></script>
+</body>
+</html>

@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Offline — Nabha Telemedicine</title>
+  <link rel="manifest" href="manifest.json">
+  <meta name="theme-color" content="#006666">
+  
+  <!-- CSS Stylesheets -->
+  <link rel="stylesheet" href="css/reset.css">
+  <link rel="stylesheet" href="css/variables.css">
+  <link rel="stylesheet" href="css/main.css">
+  <link rel="stylesheet" href="css/components.css">
+  <link rel="stylesheet" href="css/forms.css">
+  <link rel="stylesheet" href="css/dashboard.css">
+  <link rel="stylesheet" href="css/responsive.css">
+  <link rel="stylesheet" href="css/accessibility.css">
+</head>
+<body style="display: flex; flex-direction: column; min-height: 100vh; background-color: var(--background);">
+
+  <!-- Header -->
+  <header class="app-header">
+    <a href="index.html" class="header-brand">
+      <svg class="header-brand-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M22 12h-4l-3 9L9 3l-3 9H2"/></svg>
+      <span data-i18n="app_name">Nabha Telemedicine</span>
+    </a>
+
+    <div id="sync-status-pill" class="status-pill status-offline">
+      <span class="status-dot"></span>
+      <span data-i18n="status_offline">Offline — Saved Locally</span>
+    </div>
+  </header>
+
+  <!-- Main Offline Content Card -->
+  <main class="main-content" style="max-width: 500px; margin: auto; padding: var(--spacing-6) var(--spacing-4);">
+    <div class="card" style="padding: var(--spacing-8); text-align: center; box-shadow: var(--shadow-md);">
+      
+      <div style="width: 64px; height: 64px; margin: 0 auto var(--spacing-4) auto; background-color: var(--warning-bg); color: var(--warning); border-radius: 50%; display: flex; align-items: center; justify-content: center;">
+        <svg width="36" height="36" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M1 1l22 22"/><path d="M16.72 11.06A10.94 10.94 0 0 1 19 12.55"/><path d="M5 12.55a10.94 10.94 0 0 1 5.17-2.39"/><path d="M10.71 5.05A16 16 0 0 1 22.58 9"/><path d="M1.42 9a15.91 15.91 0 0 1 4.7-2.88"/><path d="M8.53 16.11a6 6 0 0 1 6.95 0"/><line x1="12" y1="20" x2="12.01" y2="20"/></svg>
+      </div>
+
+      <h1 style="font-size: var(--text-2xl); margin-bottom: var(--spacing-2);">You're Offline</h1>
+      <p style="font-size: var(--text-base); color: var(--text-secondary); margin-bottom: var(--spacing-6);">
+        Don't worry. Your locally saved patient records, prescriptions, and field data remain fully available on this device.
+      </p>
+
+      <div class="flex flex-col gap-3">
+        <a href="dashboard.html" class="btn btn-primary btn-lg btn-block">View Saved Records</a>
+        <button type="button" onclick="window.location.reload()" class="btn btn-outline btn-lg btn-block">Try Again</button>
+      </div>
+
+    </div>
+  </main>
+
+  <!-- JS Dependencies -->
+  <script src="js/config.js"></script>
+  <script src="js/storage.js"></script>
+  <script src="js/i18n.js"></script>
+  <script src="js/auth.js"></script>
+  <script src="js/indexeddb.js"></script>
+  <script src="js/offline.js"></script>
+  <script src="js/sync.js"></script>
+  <script src="js/ai.js"></script>
+    <script src="js/api.js"></script>
+  <script src="js/validation.js"></script>
+  <script src="js/ui.js"></script>
+  <script src="js/app.js"></script>
+</body>
+</html>
