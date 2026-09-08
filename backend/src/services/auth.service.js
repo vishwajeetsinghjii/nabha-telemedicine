@@ -5,6 +5,7 @@ const { generateAccessToken, generateRefreshToken, verifyRefreshToken } = requir
 const crypto = require('crypto');
 const doctorDocs = require('../repositories/doctorDocument.repository');
 const { ConflictError, AuthenticationError, ValidationError } = require('../utils/errors');
+const { generatePatientCode } = require('../utils/patientCode');
 
 function normalizeMobile(v){ if(!v) return null; const s=String(v).trim().replace(/\s+/g,''); return s.replace(/^\+91/,'').replace(/^91(?=\d{10}$)/,''); }
 function normalizeEmail(v){ return v ? String(v).trim().toLowerCase() : null; }
@@ -26,7 +27,8 @@ async function registerUser(data){
  const passwordHash=await bcrypt.hash(data.password,Number(process.env.BCRYPT_ROUNDS||12));
  const result=await db.transaction(async client=>{
    const user=await userRepository.create({name,mobile,email,passwordHash,role,accountStatus},client);
-   if(role==='PATIENT') { const age=data.age||(()=>{if(!data.dateOfBirth)return 18;const d=new Date(data.dateOfBirth);if(Number.isNaN(d.getTime()))return 18;const now=new Date();return Math.max(0,now.getFullYear()-d.getFullYear()-((now.getMonth()<d.getMonth()||now.getMonth()===d.getMonth()&&now.getDate()<d.getDate())?1:0))})(); await client.query(`INSERT INTO patients(user_id,name,age,gender,mobile,village,address,emergency_contact,blood_group,allergies,existing_conditions,medical_history,created_by,health_center_id) VALUES($1,$2,$3,$4,$5,$6,$7,$8,$9,$10,$11,$12,$1,$13)`,[user.id,name,age,gender||'Other',mobile||'',data.village||'Not specified',data.address||null,data.emergencyContact||null,data.bloodGroup||'Unknown',data.allergies||'None',data.existingConditions||'None',data.medicalHistory||'None',data.healthCenterId||null]); }
+  let patient;
+  if(role==='PATIENT') { const age=data.age||(()=>{if(!data.dateOfBirth)return 18;const d=new Date(data.dateOfBirth);if(Number.isNaN(d.getTime()))return 18;const now=new Date();return Math.max(0,now.getFullYear()-d.getFullYear()-((now.getMonth()<d.getMonth()||now.getMonth()===d.getMonth()&&now.getDate()<d.getDate())?1:0))})(); const patientRow=await client.query(`INSERT INTO patients(user_id,patient_code,name,age,gender,mobile,village,address,emergency_contact,blood_group,allergies,existing_conditions,medical_history,created_by,health_center_id) VALUES($1,$2,$3,$4,$5,$6,$7,$8,$9,$10,$11,$12,$13,$1,$14) RETURNING id,patient_code,name,age,gender,mobile,village,address,emergency_contact,blood_group,allergies,existing_conditions,medical_history,health_center_id,sync_status,created_at,updated_at`,[user.id,generatePatientCode(),name,age,gender||'Other',mobile||'',data.village||'Not specified',data.address||null,data.emergencyContact||null,data.bloodGroup||'Unknown',data.allergies||'None',data.existingConditions||'None',data.medicalHistory||'None',data.healthCenterId||null]); patient=patientRow.rows[0]; }
    if(role==='ASHA') await client.query(`INSERT INTO asha_applications(user_id,application_data,status) VALUES($1,$2,'PENDING')`,[user.id,JSON.stringify(data)]);
    if(role==='DOCTOR') {
      const appRow=await client.query(`INSERT INTO doctor_applications(user_id,full_name,mobile,email,qualification,license_number,specialization,experience_years,preferred_center_id,status) VALUES($1,$2,$3,$4,$5,$6,$7,$8,$9,'PENDING') RETURNING id`,[user.id,name,mobile||'',email||'',data.qualification||'Not provided',data.medicalRegistrationNumber||data.licenseNumber||`PENDING-${user.id}`,data.specialization||'General Medicine',Number(data.experience||data.experienceYears||0),data.healthCenterId||data.preferredCenterId||null]);
@@ -49,7 +51,7 @@ async function registerUser(data){
    }
    return user;
  });
- return {user:publicUser(result),requiresApproval:accountStatus!=='ACTIVE'};
+ return {user:publicUser(result),...(role==='PATIENT'?{patient:{id:patient.id,patientCode:patient.patient_code,name:patient.name,age:patient.age,gender:patient.gender,mobile:patient.mobile,village:patient.village,address:patient.address,emergencyContact:patient.emergency_contact,bloodGroup:patient.blood_group,allergies:patient.allergies,existingConditions:patient.existing_conditions,medicalHistory:patient.medical_history,healthCenterId:patient.health_center_id,syncStatus:patient.sync_status,createdAt:patient.created_at,updatedAt:patient.updated_at}}:{}),requiresApproval:accountStatus!=='ACTIVE'};
 }
 async function login(identifier,password){
  const id=String(identifier||'').trim(); assertPassword(password); if(!id) throw new AuthenticationError('Email or mobile number is required');

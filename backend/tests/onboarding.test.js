@@ -37,6 +37,7 @@ describe('Production User Onboarding & Privileged Role Governance', () => {
       expect(res.statusCode).toBe(201);
       expect(res.body.success).toBe(true);
       expect(res.body.data.user.role).toBe('PATIENT');
+      expect(res.body.data.patient.id).toBeDefined();
       expect(res.body.data.patient.patientCode).toMatch(/^NAB-\d{6}$/);
       expect(res.body.data.tokens.accessToken).toBeDefined();
     });
