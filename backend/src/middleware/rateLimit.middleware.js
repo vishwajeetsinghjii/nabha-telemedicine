@@ -3,12 +3,14 @@
  * Protects endpoints against brute-force attacks and abuse
  */
 
-const rateLimit = require('express-rate-limit');
+const rateLimitModule = require('express-rate-limit');
+const rateLimit = rateLimitModule.rateLimit || rateLimitModule.default || rateLimitModule;
 const { errorResponse } = require('../utils/response');
 
 const globalLimiter = rateLimit({
-  windowMs: 15 * 60 * 1000, // 15 minutes
-  max: 300, // Limit each IP to 300 requests per 15 minutes
+  windowMs: Number(process.env.GLOBAL_RATE_LIMIT_WINDOW_MS || 15 * 60 * 1000),
+  max: Number(process.env.GLOBAL_RATE_LIMIT_MAX || 300),
+  skip: (req) => req.path.startsWith('/auth/'),
   standardHeaders: true,
   legacyHeaders: false,
   handler: (req, res) => {
@@ -25,8 +27,16 @@ const publicAiLimiter = rateLimit({
 });
 
 const authLimiter = rateLimit({
-  windowMs: 15 * 60 * 1000, // 15 minutes
-  max: 20, // Limit login/OTP attempts to 20 per 15 minutes
+  windowMs: Number(process.env.AUTH_RATE_LIMIT_WINDOW_MS || 15 * 60 * 1000),
+  max: Number(process.env.AUTH_RATE_LIMIT_MAX || 20),
+  keyGenerator: (req) => {
+    const identifier = typeof req.body?.identifier === 'string'
+      ? req.body.identifier.trim().toLowerCase()
+      : typeof req.body?.mobile === 'string'
+        ? req.body.mobile.trim()
+        : '';
+    return `${req.ip || 'unknown'}:${identifier || 'unknown'}`;
+  },
   standardHeaders: true,
   legacyHeaders: false,
   handler: (req, res) => {

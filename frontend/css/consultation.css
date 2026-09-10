@@ -234,3 +234,64 @@
   .soap-tabs { overflow-x: auto; }
   .soap-tab { min-width: 88px; }
 }
+
+/* Patient Symptoms Input Sizing & Spacing */
+#symptoms-input {
+  width: 100%;
+  box-sizing: border-box;
+  min-height: 120px;
+  max-height: 280px;
+  padding: 14px 16px;
+  line-height: 1.6;
+  resize: vertical;
+  margin-bottom: 4px;
+}
+
+/* Doctor Live Consultation Form Styling */
+#clinical-panel {
+  border-top: 3px solid var(--primary);
+  padding: 24px;
+}
+
+#clinical-panel .clinical-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 20px;
+  margin-bottom: 20px;
+}
+
+#clinical-panel .form-group {
+  margin-bottom: 16px;
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+
+#clinical-panel label.form-label {
+  display: block;
+  font-weight: 700;
+  font-size: 14px;
+  color: var(--text);
+  margin-bottom: 4px;
+}
+
+#clinical-panel textarea.form-control {
+  width: 100%;
+  box-sizing: border-box;
+  font-family: var(--font-system);
+  font-size: 14px;
+  line-height: 1.5;
+  padding: 12px 14px;
+  border-radius: var(--radius-md);
+  border: 1.5px solid var(--border);
+  resize: vertical;
+}
+
+#doctor-notes {
+  min-height: 160px;
+}
+
+#doctor-assessment, #doctor-treatment, #prescription-instructions {
+  min-height: 84px;
+}
+

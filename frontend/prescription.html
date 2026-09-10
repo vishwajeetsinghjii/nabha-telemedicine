@@ -39,6 +39,33 @@
           </div>
         </div>
 
+        <!-- Patient Rx Select (PATIENT role) -->
+        <div class="form-group" style="margin-bottom: var(--spacing-6);" id="rx-history-select-container">
+          <label class="form-label" for="rx-select" style="font-weight:700;">Prescription history / Consultation date</label>
+          <select id="rx-select" class="form-control">
+            <option value="">Loading prescriptions...</option>
+          </select>
+        </div>
+
+        <!-- Doctor Rx Select (DOCTOR role) -->
+        <div id="doctor-rx-controls" class="card hidden" style="margin-bottom: var(--spacing-6); padding: var(--spacing-4);">
+          <h3 style="margin-bottom: 12px; font-size: var(--text-base); font-weight: 700;">My Patients / Prescription History</h3>
+          <div class="grid grid-cols-2 gap-4">
+            <div>
+              <label class="form-label" for="rx-patient-select" style="font-weight:700;">Select Consulted Patient</label>
+              <select id="rx-patient-select" class="form-control">
+                <option value="">Loading patients...</option>
+              </select>
+            </div>
+            <div>
+              <label class="form-label" for="rx-date-select" style="font-weight:700;">Select Consultation Date</label>
+              <select id="rx-date-select" class="form-control">
+                <option value="">Select a patient first</option>
+              </select>
+            </div>
+          </div>
+        </div>
+
         <!-- Printable Prescription Document Card -->
         <div class="card" style="padding: var(--spacing-8); border: 2px solid var(--border-light); background-color: white;">
           
@@ -110,7 +137,7 @@
               Ref ID: RX-2026-0831-9041
             </div>
             <div class="text-right">
-              <div style="font-family: cursive; font-size: 20px; color: var(--primary);">Dr. G. Singh</div>
+              <div style="font-family: cursive; font-size: 20px; color: var(--primary);" id="rx-doctor-signature">—</div>
               <div style="font-size: var(--text-xs); font-weight: 700;">Digital Signature Verified</div>
             </div>
           </div>
@@ -135,26 +162,190 @@
 
   <script>
     let currentPrescription = null;
+    let rxList = [];
+
+    function fmtOptionDate(d) {
+      if (!d) return '—';
+      const dt = new Date(d);
+      if (Number.isNaN(dt.getTime())) return '—';
+      return new Intl.DateTimeFormat(undefined, { dateStyle: 'medium' }).format(dt);
+    }
+
+    async function loadAndRenderPrescription(rxId) {
+      const rx = rxList.find(x => x.id === rxId);
+      if (!rx) return;
+      try {
+        let details = null;
+        try {
+          const response = await fetch(`${CONFIG.API_BASE_URL}/prescriptions/${encodeURIComponent(rx.id)}`, {
+            headers: { Authorization: `Bearer ${sessionStorage.getItem(CONFIG.STORAGE_KEYS.AUTH_TOKEN)}`, Accept: 'application/json' }
+          });
+          if (response.ok) {
+            const resJson = await response.json();
+            details = resJson.data ?? resJson;
+          }
+        } catch (e) {}
+        currentPrescription = details || rx;
+
+        let patName = currentPrescription.patientName;
+        let patAge = currentPrescription.patientAge;
+        if ((!patName || patAge == null) && currentPrescription.patientId) {
+          try {
+            const pObj = await api.getPatient(currentPrescription.patientId);
+            if (pObj) {
+              patName = pObj.name;
+              patAge = pObj.age;
+            }
+          } catch(e) {}
+        }
+
+        let docName = currentPrescription.doctorName || 'Doctor';
+        if (!docName.startsWith('Dr.')) docName = `Dr. ${docName}`;
+
+        const patDisplay = patName ? `${patName}${patAge != null ? `, ${patAge} yrs` : ''}` : (currentPrescription.patientId || 'Patient');
+
+        document.getElementById('rx-doctor').textContent = docName;
+        const sigEl = document.getElementById('rx-doctor-signature');
+        if (sigEl) sigEl.textContent = docName;
+        document.getElementById('rx-date').textContent = `Date: ${fmtOptionDate(currentPrescription.createdAt)}`;
+        document.getElementById('rx-patient').textContent = patDisplay;
+        document.getElementById('rx-assessment').textContent = currentPrescription.assessment || '—';
+        document.getElementById('rx-medicines-tbody').innerHTML = (currentPrescription.items || []).map((m, i) => `<tr><td>${i + 1}</td><td>${escapeHtml(m.medicineName)}</td><td>${escapeHtml(m.dosage)}</td><td>${escapeHtml(m.frequency)}</td><td>${escapeHtml(m.duration)}</td></tr>`).join('');
+        document.getElementById('rx-instructions').textContent = currentPrescription.instructions || 'No additional instructions.';
+      } catch (e) {
+        ui.showToast(e.message || 'Unable to load prescription.', 'danger');
+      }
+    }
+
     document.addEventListener('DOMContentLoaded', async () => {
       if (!auth.requireAuth()) return;
       ui.renderAppShell('prescriptions');
+      const userRole = auth.getCurrentUser()?.role;
+
       try {
-        const prescriptions = await api.getPrescriptions();
-        const requestedId = new URLSearchParams(location.search).get('id');
-        currentPrescription = prescriptions.find(rx => rx.id === requestedId) || prescriptions[0];
-        if (!currentPrescription) { ui.showToast('No prescription has been issued yet.', 'info'); return; }
-        const response = await fetch(`${CONFIG.API_BASE_URL}/prescriptions/${encodeURIComponent(currentPrescription.id)}`, {headers:{Authorization:`Bearer ${sessionStorage.getItem(CONFIG.STORAGE_KEYS.AUTH_TOKEN)}`,Accept:'application/json'}});
-        if (!response.ok) throw new Error('Unable to load prescription details.');
-        const details = (await response.json()).data;
-        currentPrescription = details || currentPrescription;
-        document.getElementById('rx-doctor').textContent = currentPrescription.doctorName || currentPrescription.doctorId || 'Doctor';
-        document.getElementById('rx-date').textContent = `Date: ${new Date(currentPrescription.createdAt).toLocaleDateString()}`;
-        document.getElementById('rx-patient').textContent = currentPrescription.patientId || 'Patient';
-        document.getElementById('rx-assessment').textContent = currentPrescription.assessment || '—';
-        document.getElementById('rx-medicines-tbody').innerHTML = (currentPrescription.items || []).map((m,i)=>`<tr><td>${i+1}</td><td>${escapeHtml(m.medicineName)}</td><td>${escapeHtml(m.dosage)}</td><td>${escapeHtml(m.frequency)}</td><td>${escapeHtml(m.duration)}</td></tr>`).join('');
-        document.getElementById('rx-instructions').textContent = currentPrescription.instructions || 'No additional instructions.';
-      } catch (e) { ui.showToast(e.message || 'Unable to load prescription.', 'danger'); }
+        const res = await api.getPrescriptions();
+        rxList = Array.isArray(res) ? res : (res?.rows || []);
+        if (!rxList.length) {
+          ui.showToast('No prescription has been issued yet.', 'info');
+          if (userRole === 'DOCTOR') {
+            document.getElementById('rx-history-select-container')?.classList.add('hidden');
+            document.getElementById('doctor-rx-controls')?.classList.remove('hidden');
+            document.getElementById('rx-patient-select').innerHTML = '<option value="">No patients consulted yet</option>';
+            document.getElementById('rx-date-select').innerHTML = '<option value="">No prescriptions</option>';
+          } else {
+            const select = document.getElementById('rx-select');
+            if (select) select.innerHTML = '<option value="">No prescriptions available</option>';
+          }
+          return;
+        }
+
+        rxList.sort((a, b) => new Date(b.createdAt || 0) - new Date(a.createdAt || 0));
+
+        if (userRole === 'DOCTOR') {
+          document.getElementById('rx-history-select-container')?.classList.add('hidden');
+          document.getElementById('doctor-rx-controls')?.classList.remove('hidden');
+
+          const patientMap = new Map();
+          for (const rx of rxList) {
+            if (!patientMap.has(rx.patientId)) {
+              let name = rx.patientName;
+              if (!name) {
+                try {
+                  const pObj = await api.getPatient(rx.patientId);
+                  if (pObj) name = pObj.name;
+                } catch(e) {}
+              }
+              patientMap.set(rx.patientId, name || 'Patient');
+            }
+          }
+
+          const patSelect = document.getElementById('rx-patient-select');
+          const dateSelect = document.getElementById('rx-date-select');
+
+          const patientOptions = Array.from(patientMap.entries()).map(([pid, name]) =>
+            `<option value="${escapeHtml(pid)}">${escapeHtml(name)}</option>`
+          ).join('');
+          patSelect.innerHTML = patientOptions;
+
+          const updateDateDropdown = (selectedPid) => {
+            const patPrescriptions = rxList.filter(x => x.patientId === selectedPid);
+            const dateCounts = {};
+            patPrescriptions.forEach(x => {
+              const dStr = fmtOptionDate(x.createdAt);
+              dateCounts[dStr] = (dateCounts[dStr] || 0) + 1;
+            });
+
+            const dateIndices = {};
+            dateSelect.innerHTML = patPrescriptions.map(x => {
+              const dStr = fmtOptionDate(x.createdAt);
+              let label = dStr;
+              if (dateCounts[dStr] > 1) {
+                dateIndices[dStr] = (dateIndices[dStr] || 0) + 1;
+                label += ` — Consultation ${dateIndices[dStr]}`;
+              }
+              return `<option value="${escapeHtml(x.id)}">${escapeHtml(label)}</option>`;
+            }).join('');
+            return patPrescriptions[0]?.id;
+          };
+
+          const requestedId = new URLSearchParams(location.search).get('id');
+          let initialRx = rxList.find(rx => rx.id === requestedId) || rxList[0];
+
+          patSelect.value = initialRx.patientId;
+          const initialSelectedRxId = updateDateDropdown(initialRx.patientId);
+          if (rxList.some(x => x.id === requestedId)) {
+            dateSelect.value = requestedId;
+          } else if (initialSelectedRxId) {
+            dateSelect.value = initialSelectedRxId;
+          }
+
+          patSelect.addEventListener('change', (e) => {
+            const newRxId = updateDateDropdown(e.target.value);
+            if (newRxId) loadAndRenderPrescription(newRxId);
+          });
+
+          dateSelect.addEventListener('change', (e) => {
+            loadAndRenderPrescription(e.target.value);
+          });
+
+          await loadAndRenderPrescription(dateSelect.value || initialRx.id);
+
+        } else {
+          const dateCounts = {};
+          rxList.forEach(rx => {
+            const dStr = fmtOptionDate(rx.createdAt);
+            dateCounts[dStr] = (dateCounts[dStr] || 0) + 1;
+          });
+
+          const dateIndices = {};
+          const select = document.getElementById('rx-select');
+          select.innerHTML = rxList.map((rx) => {
+            const dateStr = fmtOptionDate(rx.createdAt);
+            const docStr = rx.doctorName ? (rx.doctorName.startsWith('Dr.') ? rx.doctorName : `Dr. ${rx.doctorName}`) : 'Doctor';
+            let label = `${dateStr} — ${docStr}`;
+            if (dateCounts[dateStr] > 1) {
+              dateIndices[dateStr] = (dateIndices[dateStr] || 0) + 1;
+              label += ` — Consultation ${dateIndices[dateStr]}`;
+            }
+            return `<option value="${escapeHtml(rx.id)}">${escapeHtml(label)}</option>`;
+          }).join('');
+
+          const requestedId = new URLSearchParams(location.search).get('id');
+          let initialRx = rxList.find(rx => rx.id === requestedId) || rxList[0];
+          select.value = initialRx.id;
+
+          select.addEventListener('change', (e) => {
+            loadAndRenderPrescription(e.target.value);
+          });
+
+          await loadAndRenderPrescription(initialRx.id);
+        }
+
+      } catch (e) {
+        ui.showToast(e.message || 'Unable to load prescriptions.', 'danger');
+      }
     });
+
     document.getElementById('save-prescription').addEventListener('click', () => {
       if (!currentPrescription) return;
       const copy = document.querySelector('.card').cloneNode(true);

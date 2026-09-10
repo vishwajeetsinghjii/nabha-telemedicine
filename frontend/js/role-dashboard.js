@@ -27,6 +27,18 @@
   function setLoading(loading, message) {
     const node = document.getElementById('state');
     const content = document.getElementById('content');
+    if (ROLE === 'PATIENT' || ROLE === 'DOCTOR') {
+      if (content) content.hidden = false;
+      if (node) node.hidden = true;
+      state.loading = loading;
+      if (loading) {
+        clearTimeout(loadingTimer);
+        loadingTimer=setTimeout(()=>{if(state.loading)showError(new Error('The dashboard request is taking longer than expected. Please retry.'));},10000);
+      } else {
+        clearTimeout(loadingTimer);
+      }
+      return;
+    }
     if (!node || !content) return;
     if (loading) {
       clearTimeout(loadingTimer); state.loading=true; node.hidden = false;
@@ -95,7 +107,7 @@
       ${hero(u, 'PATIENT')}
       <div class="dashboard-grid">
         <div class="span-12"><div class="metrics-row">${metric('📅','Appointments',d.stats?.appointments,'All appointments in your record','appointments')}${metric('💬','Consultations',d.stats?.consultations,'All consultation records','consultations')}${metric('📄','Prescriptions',d.stats?.prescriptions,'Issued prescription records','prescriptions')}${metric('🩺','Vitals',d.stats?.vitals,'Recorded measurements','vitals')}</div></div>
-        <div class="span-12 dashboard-card card-pad"><div class="section-head"><div><h2>Consultation requests</h2><p>The care team assigns the appropriate approved doctor for you.</p></div><a class="section-action" href="consultation.html">Request care</a></div>${state.patientRequests.length?state.patientRequests.slice(0,5).map(r=>`${requestTracker(r)}${r.appointmentId?`<div class="list-actions request-tracker-action"><a class="btn-small primary" href="consultation.html?patientId=${encodeURIComponent(r.patientId)}&appointmentId=${encodeURIComponent(r.appointmentId)}&mode=workspace">${r.status==='IN_PROGRESS'?'Join consultation':r.status==='COMPLETED'?'View notes':'Open'}</a></div>`:''}`).join(''):empty('No consultation requests','Submit a consultation request and the admin care team will assign a doctor.')}</div>
+        <div class="span-12 dashboard-card card-pad"><div class="section-head"><div><h2>Consultation requests</h2><p>The care team assigns the appropriate approved doctor for you.</p></div><a class="section-action" href="consultation.html">Request care</a></div>${state.patientRequests.length?state.patientRequests.slice(0,5).map(r=>`${requestTracker(r)}${(r.appointmentId||r.consultationId)?`<div class="list-actions request-tracker-action"><a class="btn-small primary" href="consultation.html?patientId=${encodeURIComponent(r.patientId)}&appointmentId=${encodeURIComponent(r.appointmentId||'')}&consultationId=${encodeURIComponent(r.consultationId||'')}&mode=workspace">${r.status==='IN_PROGRESS'?'Join consultation':r.status==='COMPLETED'?'View notes':'Open'}</a></div>`:''}`).join(''):empty('No consultation requests','Submit a consultation request and the admin care team will assign a doctor.')}</div>
         <div class="span-12"><div class="action-grid">${actionCard('consultation.html','💬','Request consultation','Submit symptoms; admin assigns the doctor')}${actionCard('consultation.html','💬','Consultations','Open your consultation history')}${actionCard('prescription.html','📄','Prescriptions','View issued prescriptions')}${actionCard('emergency.html','🚨','Emergency help','Get urgent assistance')}</div></div>
         <div class="span-8 dashboard-card card-pad"><div class="section-head"><div><h2>Next appointment</h2><p>Your next scheduled care interaction.</p></div><a class="section-action" href="appointments.html">View all</a></div>${next ? appointmentRow(next, true) : empty('No upcoming appointment', 'When a visit is scheduled, it will appear here.')}</div>
         <div class="span-4 dashboard-card card-pad"><div class="section-head"><div><h2>Latest vitals</h2><p>Your most recent measurements.</p></div><a class="section-action" href="patient-profile.html">History</a></div>${patientVitals(v)}</div>
