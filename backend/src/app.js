@@ -7,6 +7,7 @@ const express = require('express');
 const cors = require('cors');
 const helmet = require('helmet');
 const path = require('path');
+const { EventEmitter } = require('events');
 
 const env = require('./config/env');
 const db = require('./config/database');
@@ -36,6 +37,9 @@ const consultationRequestRoutes = require('./routes/consultationRequest.routes')
 const openapiSpec = require('./docs/openapi.json');
 
 const app = express();
+app.locals = app.locals || {};
+app.locals.io = new EventEmitter();
+app.locals.io.on = app.locals.io.on.bind(app.locals.io);
 // Nginx is the single trusted reverse proxy in the production container stack.
 app.set('trust proxy', 1);
 
